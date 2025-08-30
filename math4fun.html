@@ -69,75 +69,107 @@
       </article>
 
       <section id="prob-stats-airplane" class="mx-auto max-w-4xl px-4 py-12">
-        <div class="card p-6 rounded-[1.25rem] border border-slate-700/50 bg-slate-900/40 tilt">
-          <div class="h-1.5 w-12 rounded-full bg-sky-400/70 mb-4"></div>
+        <article class="mf-card card p-6 rounded-[1.25rem] border border-slate-700/50 bg-slate-900/40 tilt" data-tags="probability">
+          <div class="flex items-center justify-between mb-4">
+            <div class="h-1.5 w-12 rounded-full bg-sky-400/70"></div>
+            <span class="text-xs text-slate-400">Added: Aug 30, 2025</span>
+          </div>
+
           <h2 class="text-xl font-semibold">Airplane Seating (Lost Boarding Pass)</h2>
 
           <p class="mt-4 text-slate-300/90">
-            There are <em>n</em> passengers and <em>n</em> seats. The first passenger lost the boarding pass and
-            picks a seat uniformly at random. Everyone else takes their own seat if free; otherwise they also
-            pick a random free seat. What is the probability the <strong>last</strong> passenger sits in the
-            correct seat?
+            There are <em>n</em> passengers and <em>n</em> seats. Passenger&nbsp;1 (who lost the pass) takes a seat uniformly at random.
+            Every later passenger takes their own seat if it’s free; otherwise they pick a random free seat.
+            What is the probability the <strong>last passenger</strong> sits in their own seat? More generally, what is the probability that the
+            <strong><em>k</em>th passenger from the end</strong> finds their seat vacant?
           </p>
 
-          <h3 class="mt-6 font-semibold">Answer (last passenger)</h3>
-          <p class="text-slate-300/90">
-            For all <em>n ≥ 2</em>, the probability is <strong>1/2</strong>.
-          </p>
+          <details class="mt-4 text-sm">
+            <summary class="cursor-pointer font-semibold text-brand hover:underline">Show Solution</summary>
+            <div class="mt-4 text-slate-300/90 space-y-4">
 
-          <h3 class="mt-6 font-semibold">Reasoning</h3>
-          <ol class="mt-3 space-y-2 text-slate-300/90 list-decimal pl-5">
-            <li>
-              Track only the “special” seats: seat 1 (the first passenger’s proper seat) and seat <em>n</em>
-              (the last passenger’s proper seat).
-            </li>
-            <li>
-              Once the first passenger sits randomly, everyone with their own seat free will take it and doesn’t
-              affect these special seats. Only when someone’s seat is taken do they choose a random free seat,
-              which can only be one of the current “special” seats.
-            </li>
-            <li>
-              The process ends the first time one of the two special seats is taken: either seat 1 (then the last
-              passenger’s seat is free) or seat <em>n</em> (then it isn’t). By symmetry, each happens with
-              probability 1/2.
-            </li>
-          </ol>
+              <h3 class="font-semibold">1) Recap: probability</h3>
+              <p>
+                \(P(\text{event A})=\dfrac{\text{# outcomes where A happens}}{\text{# all possible outcomes}}\).
+                Here, event A is “the last passenger sits in the proper seat.”
+              </p>
 
-          <h3 class="mt-6 font-semibold">Generalization</h3>
-          <p class="text-slate-300/90">
-            Let <em>k</em> be a positive integer with <em>1 ≤ k ≤ n−1</em>. Consider the
-            <strong><em>k</em>th person from the end</strong> (passenger number <em>n−k+1</em>).
-            The probability that they find their own seat vacant (hence sit correctly) is
-            <strong><em>k/(k+1)</em></strong>.
-          </p>
+              <h3 class="font-semibold">2) Structure of what happens</h3>
+              <p>
+                Focus on who is forced to choose randomly. Passenger&nbsp;1 starts the process by sitting in some seat.
+                If that seat happens to be theirs (seat&nbsp;1), the process ends immediately: everyone—including the last passenger—sits correctly.
+                If not, suppose passenger&nbsp;1 sits in seat <em>j</em>. Then when passenger <em>j</em> boards they find their seat taken and
+                must choose randomly; this may displace someone else, and so on. The “wrong-seat token” moves forward each time a displaced
+                passenger chooses at random.
+              </p>
 
-          <h4 class="mt-4 font-semibold">Why <em>k/(k+1)</em>?</h4>
-          <ol class="mt-2 space-y-2 text-slate-300/90 list-decimal pl-5">
-            <li>
-              Extend the “special seats” set to
-              <span class="whitespace-nowrap">S = { 1, n−k+1, n−k+2, …, n }</span>,
-              which has <em>k+1</em> seats: the first passenger’s seat and the final <em>k</em> proper seats.
-            </li>
-            <li>
-              Invariant: at any time before one of these special seats is finally taken, exactly one seat in
-              <em>S</em> is “claimed by the wrong person” and this “wrongness token” jumps uniformly among the
-              currently free seats in <em>S</em> whenever someone is forced to choose randomly. Passengers whose
-              own seats are free just sit and don’t affect <em>S</em>.
-            </li>
-            <li>
-              When passenger <em>n−k+1</em> is about to board, the token is equally likely to be on any one of
-              the <em>k+1</em> seats in <em>S</em>. Their seat is vacant exactly when the token is on one of the
-              <em>other k</em> seats. Hence
-              <span class="whitespace-nowrap"><strong>P = k/(k+1)</strong>.</span>
-            </li>
-          </ol>
+              <p>
+                This creates a <em>chain</em> (or loop) of displaced people. Crucially, the chain ends the first time it hits either
+                <span class="font-medium">seat&nbsp;1</span> (passenger&nbsp;1’s proper seat) or
+                <span class="font-medium">seat&nbsp;n</span> (the last passenger’s proper seat):
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                  <li>If the chain hits seat&nbsp;1 first, the last passenger’s seat has stayed free all along, so the last passenger sits correctly.</li>
+                  <li>If the chain hits seat&nbsp;n first, the last passenger’s seat is occupied before they board, so they cannot sit correctly.</li>
+                </ul>
+              </p>
 
-          <p class="mt-4 text-slate-300/90">
-            Checks: for <em>k=1</em> (the very last passenger) we get <em>1/2</em>; for <em>k=2</em>
-            (second-to-last) we get <em>2/3</em>; for <em>k=3</em> we get <em>3/4</em>, etc. The value does not
-            depend on <em>n</em> as long as <em>n ≥ k+1</em>.
-          </p>
-        </div>
+              <h3 class="font-semibold">3) Counting by “how many sit wrong” (your \(k\)-view)</h3>
+              <p>
+                Let \(k\) be the number of people who ultimately sit in the wrong seat. We never have \(k=1\) (one person alone can’t be wrong),
+                and \(k\) can be \(0,2,3,\dots,n\).
+              </p>
+
+              <ul class="list-disc pl-5 space-y-2">
+                <li><span class="font-medium">Best case \(k=0\):</span> passenger&nbsp;1 accidentally chooses seat&nbsp;1. Everyone sits correctly; last passenger succeeds.</li>
+                <li><span class="font-medium">Case \(k=2\):</span>
+                  two people form the loop of wrong seats.
+                  (i) passenger&nbsp;1 sits in seat&nbsp;n → last passenger eventually gets seat&nbsp;1 → last is wrong.
+                  (ii) passenger&nbsp;1 sits in some seat \(j\neq 1,n\) and the displaced person eventually hits seat&nbsp;1 → loop closes at 1 → last is correct.
+                </li>
+                <li><span class="font-medium">Case \(k=3\):</span>
+                  three people form the loop.
+                  There are again two flavors: one where the loop absorbs seat&nbsp;n (last becomes wrong), and one where it closes at seat&nbsp;1 (last is correct).
+                </li>
+              </ul>
+
+              <p>
+                In general, for each admissible \(k\in\{0,2,3,\dots,n\}\) there are two symmetric ways the displaced chain can terminate:
+                <span class="whitespace-nowrap">at seat&nbsp;1</span> or at <span class="whitespace-nowrap">seat&nbsp;n</span>.
+                Half of these \(k\)-scenarios lead to the last passenger being correct, and half lead to being incorrect.
+              </p>
+
+              <h3 class="font-semibold">4) Symmetry punchline → \( \mathbf{1/2} \)</h3>
+              <p>
+                The random process only cares about which of the two special seats \((1 \text{ or } n)\) is hit first by the chain of displacements.
+                By symmetry, these two are equally likely. Therefore
+                \[
+                  \Pr(\text{last passenger sits correctly})=\tfrac{1}{2}
+                  \qquad\text{for all } n\ge 2.
+                \]
+              </p>
+
+              <h3 class="font-semibold">5) Generalization: \(k\)th from last</h3>
+              <p>
+                Let’s look at the passenger who is \(k\)th from the end, i.e., passenger \(n-k+1\).
+                Track the \((k+1)\) “special” seats
+                \[
+                  S=\{1,\, n-k+1,\, n-k+2,\,\dots,\, n\}.
+                \]
+                Before any of these special seats is finally fixed, the “wrong-seat token” is equally likely to be on any of the currently free seats in \(S\).
+                When passenger \(n-k+1\) arrives, the token is uniformly on one of the \((k+1)\) seats in \(S\);
+                their own seat is vacant exactly when the token is on one of the other \(k\) seats. Hence
+                \[
+                  \Pr\big(\text{\(k\)th from last finds their seat free}\big)=\frac{k}{k+1}.
+                \]
+              </p>
+
+              <p class="mt-2">
+                Checks: \(k=1\Rightarrow 1/2\) (the last passenger), \(k=2\Rightarrow 2/3\), \(k=3\Rightarrow 3/4\), etc., independent of \(n\) (as long as \(n\ge k+1\)).
+              </p>
+
+            </div>
+          </details>
+        </article>
       </section>
 
 
