@@ -16,11 +16,11 @@
   <style>
     .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0% 2px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .25s}
     .link-underline:hover{background-size:100% 2px}
-    .card{border-radius:1rem;border:1px solid rgba(148,163,184,.25)}
     .btn{border:1px solid rgba(148,163,184,.35);border-radius:9999px;padding:.35rem .8rem;font-weight:600;transition:transform .12s ease,background-color .15s ease,color .15s ease,border-color .15s ease}
     .btn:hover{transform:translateY(-1px)}
     .btn--primary{background:#0ea5e9;color:#fff;border-color:#0ea5e9}
     .btn--primary:hover{background:#0284c7}
+    .row{border:1px solid rgba(148,163,184,.25);border-radius:1rem;background:rgba(2,6,23,.25)}
   </style>
 </head>
 <body class="bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100">
@@ -54,61 +54,60 @@
       <button class="btn" data-filter="prob">Probability/Stats</button>
     </div>
 
-    <ul class="divide-y divide-slate-700/40 rounded-xl border border-slate-700/50 bg-slate-900/30">
-      <li data-tags="prob">
-        <details class="group">
-          <summary class="flex items-center justify-between gap-4 py-4 px-5 cursor-pointer">
-            <div class="flex items-center gap-3">
-              <span class="inline-block h-2.5 w-8 rounded-full bg-sky-400/70"></span>
-              <span class="font-medium">Airplane Seating (Lost Boarding Pass)</span>
-            </div>
-            <div class="flex items-center gap-4 text-xs text-slate-400">
-              <span>Added: Aug 30, 2025</span>
-              <span class="text-brand group-open:hidden">Show Solution ▾</span>
-              <span class="text-brand hidden group-open:inline">Hide Solution ▴</span>
-            </div>
+    <ul class="rounded-xl space-y-4">
+      <li class="row" data-tags="prob">
+        <div class="flex items-start justify-between gap-4 p-5">
+          <div>
+            <h3 class="font-semibold text-lg">Airplane Seating (Lost Boarding Pass)</h3>
+            <p class="text-slate-400 text-sm mt-1">
+              There are <em>n</em> passengers and <em>n</em> seats. Passenger&nbsp;1 sits randomly;
+              each later passenger takes their own seat if free, otherwise picks randomly.
+              What’s the probability that the <strong>last passenger</strong> sits in their own seat?
+              More generally, what’s the probability that the <strong>k-th passenger from the end</strong> finds their seat vacant?
+            </p>
+          </div>
+          <div class="text-xs text-slate-400 shrink-0 mt-1">Added: Aug 30, 2025</div>
+        </div>
+
+        <details class="group border-t border-slate-700/50 bg-slate-900/20 rounded-b-xl">
+          <summary class="flex items-center justify-between py-3 px-5 cursor-pointer">
+            <span class="text-brand text-sm group-open:hidden">Show Solution ▾</span>
+            <span class="text-brand text-sm hidden group-open:inline">Hide Solution ▴</span>
           </summary>
-          <div class="pb-5 px-5 text-slate-300/90">
-            <p class="mb-3">
-              There are <em>n</em> passengers and <em>n</em> seats. Passenger&nbsp;1 lost the pass and sits in a random seat.
-              Each later passenger takes their own seat if free; otherwise they choose a random free seat.
-              What is the probability the <strong>last passenger</strong> sits in their own seat?
-              More generally, what is the probability the <strong>k-th passenger from the end</strong> finds their seat vacant?
-            </p>
 
-            <h4 class="font-semibold mt-4">Recap</h4>
-            <p class="mb-3"><code>P(A) = (number of outcomes where A happens) / (total number of outcomes)</code>.</p>
+          <div class="pb-6 px-5 text-slate-300/90 space-y-4">
+            <h4 class="font-semibold">Recap</h4>
+            <p><code>P(A) = (number of outcomes where A happens) / (total number of outcomes)</code>. Here A is “the last passenger sits in the proper seat.”</p>
 
-            <h4 class="font-semibold mt-2">Key idea</h4>
-            <p class="mb-3">
-              Track only two special seats: seat&nbsp;1 (for passenger&nbsp;1) and seat&nbsp;n (for the last passenger).
-              When someone finds their seat taken, they pick a random free seat and the “wrong-seat token” jumps.
-              The process stops the first time the chain hits seat&nbsp;1 or seat&nbsp;n.
+            <h4 class="font-semibold">Key idea (two special seats)</h4>
+            <p>
+              Track only seat 1 (for passenger 1) and seat n (for the last passenger). Passenger 1 chooses a seat. Anyone whose seat is taken picks a random free seat; think of a “wrong-seat token” that jumps each time that happens. The process stops the first time the chain hits either seat 1 or seat n:
             </p>
-            <ul class="list-disc pl-5 mb-3 space-y-1">
-              <li>If the chain hits seat&nbsp;1 first, seat&nbsp;n stayed free → the last passenger sits correctly.</li>
-              <li>If it hits seat&nbsp;n first, the last passenger’s seat is occupied → they cannot sit correctly.</li>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>If the chain hits seat 1 first, seat n was never taken ⇒ the last passenger sits correctly.</li>
+              <li>If it hits seat n first, the last passenger’s seat is already occupied ⇒ they cannot sit correctly.</li>
             </ul>
 
-            <h4 class="font-semibold mt-2">Counting by how many sit wrong (k-view)</h4>
-            <p class="mb-3">
-              Let <em>k</em> be the number of people who end up in the wrong seat. We can have <code>k = 0, 2, 3, …, n</code> (never 1).
-              For each admissible <em>k</em> there are two symmetric ways the displacement chain can close:
-              at seat&nbsp;1 or at seat&nbsp;n. Exactly half of those cases give the last passenger their correct seat.
+            <h4 class="font-semibold">Counting by how many sit wrong (k-view)</h4>
+            <p>
+              Let <em>k</em> be the number of people who end up in the wrong seat. We never have <em>k = 1</em>. For each admissible <em>k</em> (0, 2, 3, …, n) there are two symmetric ways the chain can close: at seat 1 or at seat n. Exactly half of those cases give the last passenger their correct seat.
             </p>
 
-            <h4 class="font-semibold mt-2">Result for the last passenger</h4>
-            <p class="mb-3"><strong>P(last sits correctly) = 1/2</strong> for every <em>n ≥ 2</em>.</p>
+            <h4 class="font-semibold">Result for the last passenger</h4>
+            <p><strong>P(last sits correctly) = 1/2</strong> for every <em>n ≥ 2</em>. Symmetry between the two special seats makes them equally likely to be the first one hit.</p>
 
-            <h4 class="font-semibold mt-2">Generalization</h4>
-            <p class="mb-1">
-              Consider the passenger who is <em>k</em>-th from the end (number <code>n − k + 1</code>).
-              Track the special seats <code>S = {1, n−k+1, …, n}</code> of size <code>k+1</code>.
-              Just before that passenger boards, the wrong-seat token is equally likely to be on any seat in <code>S</code>.
-              Their seat is free exactly when the token is on one of the other <code>k</code> seats.
+            <h4 class="font-semibold">Generalization: k-th from last</h4>
+            <p>
+              Consider passenger number <code>n − k + 1</code> (the k-th from the end). Track the special set
+              <code>S = {1, n−k+1, n−k+2, …, n}</code> of size <code>k+1</code>. Just before that passenger boards, the wrong-seat token is equally likely to be on any seat in <code>S</code>. Their seat is free exactly when the token is on one of the other <code>k</code> seats. Hence:
+              <strong>P(k-th from last finds own seat free) = k / (k + 1)</strong>.
             </p>
-            <p class="mb-2"><strong>P(k-th from last finds own seat free) = k / (k + 1)</strong>.</p>
-            <p>Checks: k=1 → 1/2; k=2 → 2/3; k=3 → 3/4, independent of n (for n ≥ k+1).</p>
+            <p>Checks: k=1 → 1/2 (the last passenger), k=2 → 2/3, k=3 → 3/4, independent of n (for n ≥ k+1).</p>
+
+            <h4 class="font-semibold">Alternative intuition via cases</h4>
+            <p>
+              Best case k=0: passenger 1 sits in seat 1; everyone sits correctly. For k=2 or k=3, the displacement loop either absorbs seat n (last is wrong) or closes at seat 1 (last is right). This “two outcomes per k” pattern again yields 1/2 overall.
+            </p>
           </div>
         </details>
       </li>
