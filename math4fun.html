@@ -68,109 +68,166 @@
         </details>
       </article>
 
-      <section id="prob-stats-airplane" class="mx-auto max-w-4xl px-4 py-12">
-        <article class="mf-card card p-6 rounded-[1.25rem] border border-slate-700/50 bg-slate-900/40 tilt" data-tags="probability">
-          <div class="flex items-center justify-between mb-4">
-            <div class="h-1.5 w-12 rounded-full bg-sky-400/70"></div>
-            <span class="text-xs text-slate-400">Added: Aug 30, 2025</span>
+<section id="math4fun-problems" class="mx-auto max-w-5xl px-4 py-12">
+  <!-- optional filter bar (uses data-tags on each row) -->
+  <div class="mb-4 flex gap-2 overflow-x-auto">
+    <button class="btn btn--primary" data-filter="all">All</button>
+    <button class="btn" data-filter="prob">Probability/Stats</button>
+    <button class="btn" data-filter="llm">LLM</button>
+    <button class="btn" data-filter="graph">Graphs</button>
+    <button class="btn" data-filter="misc">Misc</button>
+  </div>
+
+  <ul class="divide-y divide-slate-700/40 rounded-xl border border-slate-700/50 bg-slate-900/30">
+    <!-- 1) Airplane seating -->
+    <li data-tags="prob">
+      <details class="group">
+        <summary class="flex items-center justify-between gap-4 py-4 px-5 cursor-pointer">
+          <div class="flex items-center gap-3">
+            <span class="inline-block h-2.5 w-8 rounded-full bg-sky-400/70"></span>
+            <span class="font-medium">Airplane Seating (Lost Boarding Pass)</span>
           </div>
-
-          <h2 class="text-xl font-semibold">Airplane Seating (Lost Boarding Pass)</h2>
-
-          <p class="mt-4 text-slate-300/90">
-            There are <em>n</em> passengers and <em>n</em> seats. Passenger&nbsp;1 (who lost the pass) takes a seat uniformly at random.
-            Every later passenger takes their own seat if it’s free; otherwise they pick a random free seat.
-            What is the probability the <strong>last passenger</strong> sits in their own seat? More generally, what is the probability that the
-            <strong><em>k</em>th passenger from the end</strong> finds their seat vacant?
+          <div class="flex items-center gap-4 text-xs text-slate-400">
+            <span>Added: Aug 30, 2025</span>
+            <span class="text-brand group-open:hidden">Show Solution ▾</span>
+            <span class="text-brand hidden group-open:inline">Hide Solution ▴</span>
+          </div>
+        </summary>
+        <div class="pb-5 px-5 text-slate-300/90">
+          <p class="mb-3">
+            There are <em>n</em> passengers and <em>n</em> seats. Passenger 1 lost the pass and sits in a random seat.
+            Each later passenger takes their own seat if free; otherwise they choose a random free seat.
+            What is the probability the <strong>last passenger</strong> sits in their own seat?
+            More generally, what is the probability the <strong>k-th passenger from the end</strong> finds their seat vacant?
           </p>
 
-          <details class="mt-4 text-sm">
-            <summary class="cursor-pointer font-semibold text-brand hover:underline">Show Solution</summary>
-            <div class="mt-4 text-slate-300/90 space-y-4">
+          <h4 class="font-semibold mt-4">Recap</h4>
+          <p class="mb-3"><code>P(A) = (number of outcomes where A happens) / (total number of outcomes)</code>.</p>
 
-              <h3 class="font-semibold">1) Recap: probability</h3>
-              <p>
-                \(P(\text{event A})=\dfrac{\text{# outcomes where A happens}}{\text{# all possible outcomes}}\).
-                Here, event A is “the last passenger sits in the proper seat.”
-              </p>
+          <h4 class="font-semibold mt-2">Key idea</h4>
+          <p class="mb-3">
+            Track only the two “special” seats: seat 1 (for passenger 1) and seat n (for the last passenger).
+            When someone’s proper seat is taken, they pick a random free seat and the “wrong-seat token” jumps.
+            The process stops the first time the chain hits seat&nbsp;1 or seat&nbsp;n.
+          </p>
 
-              <h3 class="font-semibold">2) Structure of what happens</h3>
-              <p>
-                Focus on who is forced to choose randomly. Passenger&nbsp;1 starts the process by sitting in some seat.
-                If that seat happens to be theirs (seat&nbsp;1), the process ends immediately: everyone—including the last passenger—sits correctly.
-                If not, suppose passenger&nbsp;1 sits in seat <em>j</em>. Then when passenger <em>j</em> boards they find their seat taken and
-                must choose randomly; this may displace someone else, and so on. The “wrong-seat token” moves forward each time a displaced
-                passenger chooses at random.
-              </p>
+          <ul class="list-disc pl-5 mb-3 space-y-1">
+            <li>If the chain hits seat 1 first, seat n was never taken; the last passenger sits correctly.</li>
+            <li>If it hits seat n first, the last passenger’s seat is occupied; they cannot sit correctly.</li>
+          </ul>
 
-              <p>
-                This creates a <em>chain</em> (or loop) of displaced people. Crucially, the chain ends the first time it hits either
-                <span class="font-medium">seat&nbsp;1</span> (passenger&nbsp;1’s proper seat) or
-                <span class="font-medium">seat&nbsp;n</span> (the last passenger’s proper seat):
-                <ul class="list-disc pl-5 mt-2 space-y-1">
-                  <li>If the chain hits seat&nbsp;1 first, the last passenger’s seat has stayed free all along, so the last passenger sits correctly.</li>
-                  <li>If the chain hits seat&nbsp;n first, the last passenger’s seat is occupied before they board, so they cannot sit correctly.</li>
-                </ul>
-              </p>
+          <h4 class="font-semibold mt-2">Counting by how many sit wrong (k-view)</h4>
+          <p class="mb-3">
+            Let <em>k</em> be the number of people who end up in the wrong seat.
+            We can have <code>k = 0, 2, 3, …, n</code> (never 1). For each admissible <em>k</em>
+            there are two symmetric ways the chain can close: at seat 1 or at seat n.
+            Exactly half of those cases give the last passenger their correct seat.
+          </p>
 
-              <h3 class="font-semibold">3) Counting by “how many sit wrong” (your \(k\)-view)</h3>
-              <p>
-                Let \(k\) be the number of people who ultimately sit in the wrong seat. We never have \(k=1\) (one person alone can’t be wrong),
-                and \(k\) can be \(0,2,3,\dots,n\).
-              </p>
+          <h4 class="font-semibold mt-2">Result for the last passenger</h4>
+          <p class="mb-3"><strong>P(last sits correctly) = 1/2</strong> for every <em>n ≥ 2</em>.</p>
 
-              <ul class="list-disc pl-5 space-y-2">
-                <li><span class="font-medium">Best case \(k=0\):</span> passenger&nbsp;1 accidentally chooses seat&nbsp;1. Everyone sits correctly; last passenger succeeds.</li>
-                <li><span class="font-medium">Case \(k=2\):</span>
-                  two people form the loop of wrong seats.
-                  (i) passenger&nbsp;1 sits in seat&nbsp;n → last passenger eventually gets seat&nbsp;1 → last is wrong.
-                  (ii) passenger&nbsp;1 sits in some seat \(j\neq 1,n\) and the displaced person eventually hits seat&nbsp;1 → loop closes at 1 → last is correct.
-                </li>
-                <li><span class="font-medium">Case \(k=3\):</span>
-                  three people form the loop.
-                  There are again two flavors: one where the loop absorbs seat&nbsp;n (last becomes wrong), and one where it closes at seat&nbsp;1 (last is correct).
-                </li>
-              </ul>
+          <h4 class="font-semibold mt-2">Generalization</h4>
+          <p class="mb-1">
+            Consider the passenger who is <em>k</em>-th from the end (number <code>n − k + 1</code>).  
+            Track the set of special seats <code>S = {1, n−k+1, n−k+2, …, n}</code> (size <code>k+1</code>).
+            Just before that passenger boards, the wrong-seat token is equally likely to be on any seat in <code>S</code>.
+            Their own seat is free exactly when the token is on one of the other <code>k</code> seats.
+          </p>
+          <p class="mb-2"><strong>P(k-th from last finds own seat free) = k / (k + 1)</strong>.</p>
 
-              <p>
-                In general, for each admissible \(k\in\{0,2,3,\dots,n\}\) there are two symmetric ways the displaced chain can terminate:
-                <span class="whitespace-nowrap">at seat&nbsp;1</span> or at <span class="whitespace-nowrap">seat&nbsp;n</span>.
-                Half of these \(k\)-scenarios lead to the last passenger being correct, and half lead to being incorrect.
-              </p>
+          <p>Checks: k=1 → 1/2 (last passenger), k=2 → 2/3, k=3 → 3/4, etc., independent of n (for n ≥ k+1).</p>
+        </div>
+      </details>
+    </li>
 
-              <h3 class="font-semibold">4) Symmetry punchline → \( \mathbf{1/2} \)</h3>
-              <p>
-                The random process only cares about which of the two special seats \((1 \text{ or } n)\) is hit first by the chain of displacements.
-                By symmetry, these two are equally likely. Therefore
-                \[
-                  \Pr(\text{last passenger sits correctly})=\tfrac{1}{2}
-                  \qquad\text{for all } n\ge 2.
-                \]
-              </p>
+    <!-- 2) Temperature vs. Entropy in LLM Sampling -->
+    <li data-tags="llm">
+      <details class="group">
+        <summary class="flex items-center justify-between gap-4 py-4 px-5 cursor-pointer">
+          <div class="flex items-center gap-3">
+            <span class="inline-block h-2.5 w-8 rounded-full bg-fuchsia-400/70"></span>
+            <span class="font-medium">Temperature vs. Entropy in LLM Sampling</span>
+          </div>
+          <span class="text-brand group-open:hidden text-xs">Show Solution ▾</span>
+          <span class="text-brand hidden group-open:inline text-xs">Hide Solution ▴</span>
+        </summary>
+        <div class="pb-5 px-5 text-slate-300/90">
+          Show that raising temperature T generally increases output entropy for a fixed logit vector, and note counter-examples when truncation (e.g., top-p) is applied.
+        </div>
+      </details>
+    </li>
 
-              <h3 class="font-semibold">5) Generalization: \(k\)th from last</h3>
-              <p>
-                Let’s look at the passenger who is \(k\)th from the end, i.e., passenger \(n-k+1\).
-                Track the \((k+1)\) “special” seats
-                \[
-                  S=\{1,\, n-k+1,\, n-k+2,\,\dots,\, n\}.
-                \]
-                Before any of these special seats is finally fixed, the “wrong-seat token” is equally likely to be on any of the currently free seats in \(S\).
-                When passenger \(n-k+1\) arrives, the token is uniformly on one of the \((k+1)\) seats in \(S\);
-                their own seat is vacant exactly when the token is on one of the other \(k\) seats. Hence
-                \[
-                  \Pr\big(\text{\(k\)th from last finds their seat free}\big)=\frac{k}{k+1}.
-                \]
-              </p>
+    <!-- 3) Why Soft Labels for Distillation? -->
+    <li data-tags="llm">
+      <details class="group">
+        <summary class="flex items-center justify-between gap-4 py-4 px-5 cursor-pointer">
+          <div class="flex items-center gap-3">
+            <span class="inline-block h-2.5 w-8 rounded-full bg-emerald-400/70"></span>
+            <span class="font-medium">Why Soft Labels for Distillation?</span>
+          </div>
+          <span class="text-brand group-open:hidden text-xs">Show Solution ▾</span>
+          <span class="text-brand hidden group-open:inline text-xs">Hide Solution ▴</span>
+        </summary>
+        <div class="pb-5 px-5 text-slate-300/90">
+          Minimizing KL with softened teacher outputs transfers relative logit structure (“dark knowledge”) that one-hot cross-entropy discards.
+        </div>
+      </details>
+    </li>
 
-              <p class="mt-2">
-                Checks: \(k=1\Rightarrow 1/2\) (the last passenger), \(k=2\Rightarrow 2/3\), \(k=3\Rightarrow 3/4\), etc., independent of \(n\) (as long as \(n\ge k+1\)).
-              </p>
+    <!-- 4) Coupon Collector Tail -->
+    <li data-tags="prob">
+      <details class="group">
+        <summary class="flex items-center justify-between gap-4 py-4 px-5 cursor-pointer">
+          <div class="flex items-center gap-3">
+            <span class="inline-block h-2.5 w-8 rounded-full bg-amber-400/70"></span>
+            <span class="font-medium">Coupon Collector Tail</span>
+          </div>
+          <span class="text-brand group-open:hidden text-xs">Show Solution ▾</span>
+          <span class="text-brand hidden group-open:inline text-xs">Hide Solution ▴</span>
+        </summary>
+        <div class="pb-5 px-5 text-slate-300/90">
+          Prove P(T ≥ n(ln n + c)) ≤ e^{−c} via the union bound.
+        </div>
+      </details>
+    </li>
 
-            </div>
-          </details>
-        </article>
-      </section>
+    <!-- 5) GCN Over-smoothing Threshold -->
+    <li data-tags="graph">
+      <details class="group">
+        <summary class="flex items-center justify-between gap-4 py-4 px-5 cursor-pointer">
+          <div class="flex items-center gap-3">
+            <span class="inline-block h-2.5 w-8 rounded-full bg-indigo-400/70"></span>
+            <span class="font-medium">GCN Over-smoothing Threshold</span>
+          </div>
+          <span class="text-brand group-open:hidden text-xs">Show Solution ▾</span>
+          <span class="text-brand hidden group-open:inline text-xs">Hide Solution ▴</span>
+        </summary>
+        <div class="pb-5 px-5 text-slate-300/90">
+          Repeated Ā multiplication collapses features toward stationarity; the rate is governed by the spectral gap.
+        </div>
+      </details>
+    </li>
+  </ul>
+</section>
+
+<script>
+  const bar = document.querySelector('#math4fun-problems [data-filter="all"]')?.parentElement;
+  if (bar) {
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      const tag = btn.getAttribute('data-filter');
+      document.querySelectorAll('#math4fun-problems li[data-tags]').forEach(li => {
+        const tags = li.getAttribute('data-tags') || '';
+        li.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+      });
+      [...bar.children].forEach(b => b.classList.remove('btn--primary'));
+      btn.classList.add('btn--primary');
+    });
+  }
+</script>
+
 
 
       <article class="mf-card card p-5" data-tags="probstats">
