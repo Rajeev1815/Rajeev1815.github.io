@@ -14,6 +14,21 @@
     tailwind.config = { darkMode:'class', theme: { extend: { colors: { brand: { DEFAULT:'#0ea5e9', 600:'#0284c7' } } } } };
   </script>
   <style>
+    /* subtle animated glow + float */
+    @keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+    .blob { filter: blur(40px); opacity:.45; animation: float 8s ease-in-out infinite; }
+
+    /* card polish + micro-interaction */
+    .card { border-radius: 1.25rem; border: 1px solid rgba(148,163,184,.25); backdrop-filter: saturate(140%) blur(2px); }
+    .tilt { transition: transform .25s ease, box-shadow .25s ease; }
+    .tilt:hover { transform: translateY(-4px) rotateZ(-0.3deg); box-shadow: 0 20px 30px rgba(2,132,199,.18); }
+
+    /* magnetic buttons */
+    .mbtn { transition: transform .15s ease; }
+    .mbtn:hover { transform: translateY(-2px); }
+  </style>
+
+  <style>
     .link-underline { background-image: linear-gradient(currentColor,currentColor); background-size: 0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .25s; }
     .link-underline:hover { background-size: 100% 2px; }
     .card { border-radius: 1rem; border: 1px solid rgba(148,163,184,.25); }
@@ -43,19 +58,26 @@
         <h1 class="mt-2 text-4xl md:text-5xl font-extrabold leading-tight">Hi, I'm <span class="text-brand">Rajeev</span> — Research / ML / Quant</h1>
         <p class="mt-4 text-slate-600 dark:text-slate-300">Dual Degree @ IIT Kharagpur · Research Scientist Intern @ Microsoft · Applied Scientist Intern @ Amazon. I build AutoKB/Bandish tooling and explore Relativistic Black–Scholes.</p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="projects.html" class="inline-flex items-center rounded-xl bg-brand px-4 py-2 text-white hover:bg-brand-600">View Projects</a>
-          <a href="resume.html" class="inline-flex items-center rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2 hover:shadow">Resume</a>
+          <a href="projects.html" class="mbtn inline-flex items-center rounded-xl bg-brand px-4 py-2 text-white hover:bg-brand-600">View Projects</a>
+          <a href="resume.html" class="mbtn inline-flex items-center rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2">Resume</a>
           <a href="math4fun.html" target="_blank" class="inline-flex items-center rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2 hover:shadow">Math 4 Fun ↗</a>
         </div>
       </div>
       <div class="md:justify-self-end">
         <div class="relative">
-          <div class="absolute inset-0 -z-10 rounded-3xl blur-3xl bg-gradient-to-tr from-brand/20 to-fuchsia-500/20"></div>
-          <div class="rounded-3xl border border-slate-200 dark:border-slate-700 p-1 bg-white/60 dark:bg-slate-950/60">
-           <img class="rounded-2xl" src="Rajeev_Convo.JPG" alt="Rajeev Lochan Joshi at convocation"/>
+          <!-- soft animated glow -->
+          <div class="absolute inset-0 -z-10 blob bg-gradient-to-tr from-brand/25 to-fuchsia-500/25 rounded-3xl"></div>
+
+          <!-- portrait frame: fixed aspect ratio, overflow crop -->
+          <div class="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-950/60 overflow-hidden shadow-xl max-w-[520px] mx-auto"
+              style="aspect-ratio: 3 / 4;">
+            <img src="Rajeev_Convo.JPG"
+                alt="Rajeev Lochan Joshi at IIT Kharagpur"
+                class="h-full w-full object-cover object-center" />
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -75,7 +97,7 @@
       <p>© <span id="year"></span> Rajeev Lochan Joshi</p>
       <div class="flex gap-4">
         <a class="link-underline" href="https://github.com/Rajeev1815" target="_blank">GitHub</a>
-        <a class="link-underline" href="#" target="_blank">LinkedIn</a>
+        <a class="link-underline" href="https://www.linkedin.com/in/rajeev-joshi-175b0222a/" target="_blank">LinkedIn</a>
         <a class="link-underline" href="#" target="_blank">Google Scholar</a>
       </div>
     </div>
