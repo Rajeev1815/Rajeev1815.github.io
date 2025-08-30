@@ -2,6 +2,14 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <style>
+  .marquee { animation: marquee 28s linear infinite; }
+  @keyframes marquee {
+    from { transform: translateX(0) }
+    to   { transform: translateX(-50%) }
+  }
+  </style>
+
+  <style>
   /* Submerged / blended image container */
   .submerge {
     position: relative;
@@ -37,6 +45,46 @@
   <script>
     tailwind.config = { darkMode:'class', theme: { extend: { colors: { brand: { DEFAULT:'#0ea5e9', 600:'#0284c7' } } } } };
   </script>
+
+  <style>
+  /* ===== Fancy logo ===== */
+  .logo { position: relative; display:flex; align-items:center; gap:.6rem }
+  .logo-badge {
+    width:40px;height:40px;border-radius:9999px;position:relative;isolation:isolate;
+    background: radial-gradient(60% 60% at 30% 30%, #a78bfa 0%, #0ea5e9 90%);
+    box-shadow: 0 6px 16px rgba(2,132,199,.30), inset 0 -8px 18px rgba(2,6,23,.35);
+    overflow:hidden;
+  }
+  .logo-badge::after{ /* grain */
+    content:""; position:absolute; inset:-50%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 20 20'%3E%3Cpath fill='%23ffffff10' d='M0 0h2v2H0zM10 10h2v2h-2zM6 14h1v1H6zM14 4h1v1h-1z'/%3E%3C/svg%3E");
+    opacity:.4; filter:contrast(120%) blur(.3px);
+    animation: drift 14s linear infinite;
+    mix-blend-mode: soft-light;
+  }
+  @keyframes drift{ to { transform: translate3d(-25%, -25%, 0) rotate(10deg) } }
+
+  .logo-ring {
+    position:absolute; inset:-6px; border-radius:9999px; pointer-events:none;
+    background:
+      conic-gradient(from 0deg, #0ea5e980, #a78bfa80, #0ea5e980);
+    mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+    animation: spin 9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(1turn) } }
+
+  .logo-dot {
+    position:absolute; right:-3px; top:50%; translate:0 -50%;
+    width:10px;height:10px;border-radius:9999px;background:#22d3ee;
+    box-shadow: 0 0 18px 6px #22d3ee60;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100%{ transform: translateY(-2px) } 50%{ transform: translateY(2px) } }
+
+  .logo-text { font-weight:700; letter-spacing:.2px }
+  .logo:hover .logo-badge{ transform: translateY(-1px) scale(1.03); transition: transform .18s ease }
+</style>
+
 
   <!-- Minimal, unified styles -->
   <style>
@@ -82,7 +130,16 @@
   <!-- Header -->
   <header class="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-slate-900/70 border-b border-slate-200/60 dark:border-slate-800">
     <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3">
+      <a href="index.html" class="logo">
+        <span class="logo-badge">
+          <span class="logo-ring"></span>
+          <span class="logo-dot"></span>
+          <span class="absolute inset-0 grid place-items-center text-white font-extrabold">RJ</span>
+        </span>
+        <span class="logo-text">Rajeev <span class="text-brand">Lochan</span> Joshi</span>
+      </a>
+
+
         <svg width="36" height="36" viewBox="0 0 48 48" class="rounded-full shadow" aria-hidden="true">
           <defs>
             <linearGradient id="g" x1="0" x2="1" y1="1" y2="0">
@@ -161,6 +218,38 @@
     </div>
   </section>
 
+<section aria-label="Skills" class="py-6">
+  <div class="overflow-hidden border-y border-slate-200/60 dark:border-slate-800">
+    <div class="marquee flex gap-6 py-4 will-change-transform">
+      <!-- duplicate set twice for seamless loop -->
+      <div class="flex gap-6 shrink-0">
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Quant Finance</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Risk Modeling</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Machine Learning</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">NLP</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Time Series</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Stochastic Calc</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Python</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Pandas</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">PyTorch</span>
+      </div>
+      <div class="flex gap-6 shrink-0" aria-hidden="true">
+        <!-- same chips again for loop -->
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Quant Finance</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Risk Modeling</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Machine Learning</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">NLP</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Time Series</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Stochastic Calc</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Python</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">Pandas</span>
+        <span class="px-4 py-2 rounded-full border border-slate-300/40 dark:border-slate-700/60">PyTorch</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
   <!-- ABOUT -->
   <section id="about" class="bg-slate-50 dark:bg-slate-950/30 border-y border-slate-200/60 dark:border-slate-800">
     <div class="mx-auto max-w-6xl px-4 py-16">
@@ -170,6 +259,29 @@
       </p>
     </div>
   </section>
+
+<section class="mx-auto max-w-6xl px-4 py-16">
+  <h2 class="text-2xl font-bold mb-6">They’re talking about me</h2>
+  <p class="text-sm text-slate-500 mb-6">These links open in a new tab.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <a class="card tilt p-5 hover:shadow-xl" href="#" target="_blank" rel="noopener">
+      <div class="h-1.5 w-10 rounded-full bg-emerald-400/70 mb-4"></div>
+      <p class="font-medium">IIT Kharagpur</p>
+      <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Convocation feature</p>
+    </a>
+    <a class="card tilt p-5 hover:shadow-xl" href="#" target="_blank" rel="noopener">
+      <div class="h-1.5 w-10 rounded-full bg-fuchsia-400/70 mb-4"></div>
+      <p class="font-medium">Nomura Research</p>
+      <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Risk modeling write-up</p>
+    </a>
+    <a class="card tilt p-5 hover:shadow-xl" href="#" target="_blank" rel="noopener">
+      <div class="h-1.5 w-10 rounded-full bg-sky-400/70 mb-4"></div>
+      <p class="font-medium">Personal Blog</p>
+      <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">LLMs & information theory</p>
+    </a>
+  </div>
+</section>
+
 
   <!-- HIGHLIGHTS -->
   <section class="bg-slate-50 dark:bg-slate-950/30 border-y border-slate-200/60 dark:border-slate-800">
