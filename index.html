@@ -22,12 +22,23 @@
     @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
     .blob{filter:blur(40px);opacity:.45;animation:float 8s ease-in-out infinite}
 
-    .mbtn{transition:transform .15s ease, box-shadow .2s ease}
-    .mbtn:hover{transform:translateY(-2px);box-shadow:0 18px 30px rgba(2,132,199,.18)}
-
     .card{border-radius:1.25rem;border:1px solid rgba(148,163,184,.25);backdrop-filter:saturate(140%) blur(2px)}
     .tilt{transition:transform .22s ease, box-shadow .22s ease}
     .tilt:hover{transform:translateY(-4px) rotateZ(-.3deg);box-shadow:0 20px 30px rgba(2,132,199,.18)}
+
+    /* --- Buttons (one system) --- */
+    .btn{
+      display:inline-flex;align-items:center;gap:.5rem;
+      border-radius:1rem;padding:.6rem 1rem;font-weight:600;
+      border:1px solid rgba(148,163,184,.35);
+      transition:transform .16s ease, box-shadow .2s ease, background-color .15s ease, border-color .15s ease, color .15s ease;
+      will-change:transform;
+    }
+    .btn:hover{ transform: translateY(-2px) scale(1.03); }
+    .btn--primary{ color:#fff;background:#0ea5e9;border-color:#0ea5e9; }
+    .btn--primary:hover{ box-shadow:0 18px 30px rgba(2,132,199,.18); background:#0284c7; }
+    .btn--outline{ color:inherit;background:transparent; }
+    .btn--outline:hover{ background:rgba(148,163,184,.08); border-color:rgba(148,163,184,.55); }
 
     @media (prefers-reduced-motion:no-preference){
       #cursor{position:fixed;inset:0;pointer-events:none;z-index:50;mix-blend-mode:exclusion}
@@ -54,8 +65,8 @@
               <stop offset="0" stop-color="#0ea5e9"/><stop offset="1" stop-color="#a78bfa"/>
             </linearGradient>
           </defs>
-        <circle cx="24" cy="24" r="24" fill="url(#g)"/>
-        <text x="50%" y="58%" text-anchor="middle" font-size="20" font-weight="700" fill="white">RJ</text>
+          <circle cx="24" cy="24" r="24" fill="url(#g)"/>
+          <text x="50%" y="58%" text-anchor="middle" font-size="20" font-weight="700" fill="white">RJ</text>
         </svg>
         <span class="font-semibold tracking-tight text-lg">Rajeev <span class="text-brand">Lochan</span> Joshi</span>
       </a>
@@ -85,28 +96,27 @@
   <section class="mx-auto max-w-6xl px-4 py-16 md:py-24">
     <div class="grid md:grid-cols-2 gap-10 items-center">
       <div>
-        <p class="uppercase tracking-widest text-xs text-slate-500" data-i18n="hero_tag">Portfolio</p>
+        <p class="uppercase tracking-widest text-xs text-slate-500" data-i18n="hero_tag">Dual Degree Graduate @ IIT Kharagpur</p>
         <h1 class="mt-2 text-4xl md:text-5xl font-extrabold leading-tight">
           <span data-i18n="hero_hi">Hi, I'm</span>
-          <span class="bg-gradient-to-r from-sky-400 to-fuchsia-400 bg-clip-text text-transparent">Rajeev</span>
-          — <span data-i18n="hero_role">Quantitative Finance/ Machine Learning/ Data Science</span>
+          <span class="bg-gradient-to-r from-sky-400 to-fuchsia-400 bg-clip-text text-transparent">Rajeev</span>.
         </h1>
         <p class="mt-4 text-slate-600 dark:text-slate-300" data-i18n="hero_sub">
-          Dual Degree @ IIT Kharagpur · Risk Quantitative Analyst @ Nomura · SWE Intern @ Microsoft
+          My interests lie in Quantitative Finance, Machine Learning, Data Science, and Mathematics.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href="projects.html" class="mbtn inline-flex items-center rounded-xl bg-brand px-4 py-2 text-white hover:bg-brand-600" data-i18n="cta_projects">View Projects</a>
-          <a href="resume.html" class="mbtn inline-flex items-center rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2" data-i18n="cta_resume">Resume</a>
-          <a href="math4fun.html" target="_blank" class="mbtn inline-flex items-center rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2" data-i18n="cta_math">Math 4 Fun ↗</a>
+          <a href="projects.html" class="btn btn--primary" data-i18n="cta_projects">View Projects</a>
+          <a href="resume.html" class="btn btn--outline" data-i18n="cta_resume">Resume</a>
+          <a href="math4fun.html" target="_blank" class="btn btn--outline" data-i18n="cta_math">Math 4 Fun ↗</a>
         </div>
       </div>
 
-      <!-- Portrait -->
+      <!-- Photo (landscape crop, controlled focus) -->
       <div class="md:justify-self-end">
         <div class="relative">
           <div class="absolute inset-0 -z-10 blob bg-gradient-to-tr from-brand/25 to-fuchsia-500/25 rounded-[3rem]"></div>
-          <div class="rounded-[3rem] border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-950/60 overflow-hidden shadow-xl max-w-[520px] mx-auto" style="aspect-ratio:3/4">
-            <img src="Rajeev_Convo.JPG" alt="Rajeev Lochan Joshi" class="h-full w-full object-cover object-center" />
+          <div class="rounded-[3rem] border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-950/60 overflow-hidden shadow-xl max-w-[640px] mx-auto" style="aspect-ratio:4/3">
+            <img src="Rajeev_Convo.JPG" alt="Rajeev Lochan Joshi at IIT Kharagpur" class="h-full w-full object-cover object-[50%_30%]" />
           </div>
         </div>
       </div>
@@ -156,7 +166,7 @@
     </div>
   </footer>
 
-  <!-- Scripts at the end so elements exist -->
+  <!-- Scripts at the end -->
   <script>
     // dark mode
     const themeBtn=document.getElementById('themeToggle'), root=document.documentElement, saved=localStorage.getItem('theme');
@@ -171,10 +181,9 @@
     const i18n = {
       en: {
         nav_home:"Home", nav_resume:"Resume ↗", nav_projects:"Projects", nav_pubs:"Publications", nav_interests:"Interests ↗", nav_math:"Math 4 Fun ↗", nav_contact:"Contact",
-        hero_tag:"Portfolio",
+        hero_tag:"Dual Degree Graduate @ IIT Kharagpur",
         hero_hi: "Hi, I'm",
-        hero_role: "Quantitative Finance/ Machine Learning/ Data Science",
-        hero_sub: "Dual Degree @ IIT Kharagpur · Risk Quantitative Analyst @ Nomura · SWE Intern @ Microsoft",
+        hero_sub: "My interests lie in Quantitative Finance, Machine Learning, Data Science, and Mathematics.",
         about_title: "About",
         about_body: "Graduate from IIT Kharagpur with a B.Tech in Mechanical and an M.Tech in Financial Engineering. Passionate about applying mathematical and statistical thinking to real-world problems, and fascinated by the beauty of mathematics, woven into the fabric of human thought and activity. I am especially motivated by how mathematics is taught and how ideas from mathematics, physics, and statistics evolve into tools like machine learning, shaping the way we understand and interact with the world. Beyond academics, I pursue long runs, cricket, poetry, and cosmology.",
         highlights:"Highlights",
@@ -185,26 +194,24 @@
       },
       fr: {
         nav_home:"Accueil", nav_resume:"CV ↗", nav_projects:"Projets", nav_pubs:"Publications", nav_interests:"Centres d’intérêt ↗", nav_math:"Math 4 Fun ↗", nav_contact:"Contact",
-        hero_tag:"Portfolio",
+        hero_tag:"Diplômé double cursus — IIT Kharagpur",
         hero_hi:"Salut, je suis",
-        hero_role:"Finance quantitative / Machine Learning / Data Science",
-        hero_sub:"Double diplôme à l’IIT Kharagpur · Analyste quantitatif risque chez Nomura · Stage SWE chez Microsoft",
+        hero_sub:"Mes intérêts portent sur la finance quantitative, le machine learning, la science des données et les mathématiques.",
         about_title:"À propos",
-        about_body:"Diplômé de l’IIT Kharagpur (B.Tech en mécanique, M.Tech en ingénierie financière). Passionné par l’application de la pensée mathématique et statistique aux problèmes réels, et par la beauté des mathématiques au cœur de la pensée humaine. J’aime comprendre comment les idées venues des maths, de la physique et des statistiques deviennent des outils tels que le machine learning. En dehors du travail : longues courses, cricket, poésie et cosmologie.",
+        about_body:"Diplômé de l’IIT Kharagpur (B.Tech en mécanique, M.Tech en ingénierie financière). Passionné par l’application de la pensée mathématique et statistique aux problèmes réels, et par la beauté des mathématiques au cœur de la pensée humaine. J’aime comprendre comment les idées issues des maths, de la physique et des statistiques deviennent des outils tels que le machine learning. En dehors du travail : longues courses, cricket, poésie et cosmologie.",
         highlights:"Points forts",
         hi_1_t:"Analyste quantitatif risque — Nomura", hi_1_d:"Model Validation Group : modélisation et analytique du risque.",
-        hi_2_t:"Black–Scholes relativiste — article", hi_2_d:"EDP hyperbolique, vitesse d’information finie ; solveurs numériques & validation.",
+        hi_2_t:"Black–Scholes relativiste — article", hi_2_d:"EDP hyperbolique ; vitesse d’information finie ; solveurs numériques et validation.",
         hi_3_t:"Microsoft — 2× stage SWE", hi_3_d:"Recherche/NLP & plateforme ; ingénierie de production.",
         cta_projects:"Voir les projets", cta_resume:"CV", cta_math:"Math 4 Fun ↗"
       },
       sa: {
         nav_home:"मुख्यपृष्ठम्", nav_resume:"जीवन-वृत्तम् ↗", nav_projects:"प्रकल्पाः", nav_pubs:"प्रकाशनानि", nav_interests:"रुचयः ↗", nav_math:"Math 4 Fun ↗", nav_contact:"सम्पर्कः",
-        hero_tag:"पोर्टफोलियो",
+        hero_tag:"द्वि-पदवी — IIT खड़्गपुर",
         hero_hi:"नमस्ते, अहं",
-        hero_role:"परिमाण-वित्त / यन्त्र-अध्ययन / डाटा-विज्ञान",
-        hero_sub:"द्वि-पदवी IIT खड़्गपुरे · Nomura इत्यत्र Risk Quant Analyst · Microsoft इत्यत्र SWE प्रशिक्षार्थी",
+        hero_sub:"मम रुचयः परिमाण-वित्ते, यन्त्र-अध्ययने, डाटा-विज्ञाने, गणिते च सन्ति।",
         about_title:"मम विषये",
-        about_body:"अहं IIT खड़्गपुरात् यन्त्र-अभियांत्रिके स्नातकः वित्त-अभियांत्रिके च स्नातकोत्तरः। व्यवहार-समस्यासु गणित-आंकिक-चिन्तनस्य प्रयोगे रतः, मानव-चिन्तन-वृत्तिषु निहितं गणित-सौन्दर्यं मम प्रियं। गणित-भौतिक-आंकिकेभ्यः विचाराः यथा मशीन-लर्निंग् इत्यादयः कथं विश्व-बोधनं परिवर्तयन्ति—अत्र विशेष-रुचिः। अवकाशे दीर्घ-दौडाः, क्रिकेट-क्रीडा, काव्यम्, ब्रह्माण्ड-चिन्तनं च।",
+        about_body:"अहं IIT खड़्गपुरात् यन्त्र-अभियांत्रिके स्नातकः वित्त-अभियांत्रिके च स्नातकोत्तरः। व्यवहार-समस्यासु गणित-आंकिक-चिन्तनस्य प्रयोगे रतः; गणितस्य सौन्दर्येन मोहितः। गणित-भौतिक-आंकिकेभ्यः विचाराः यथा मशीन-लर्निंग् इत्यादयः कथं विश्व-बोधनं परिवर्तयन्ति—अत्र विशेष-रुचिः। अवकाशे दीर्घ-दौडाः, क्रिकेटः, काव्यम्, ब्रह्माण्ड-चिन्तनं च।",
         highlights:"प्रमुखाः",
         hi_1_t:"Risk Quantitative Analyst — Nomura", hi_1_d:"Model Validation Group – जोखिम-मॉडलनम् एवं विश्लेषणम्।",
         hi_2_t:"Relativistic Black–Scholes — लेखः", hi_2_d:"हाइपरबोलिक् PDE; सीमित-सूचना-वेगः; संख्य-उपपत्तयः।",
