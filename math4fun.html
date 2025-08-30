@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mathematics For Fun — Rajeev Lochan Joshi</title>
+  <meta name="description" content="Problems & solution sketches in LLMs, probability, stats, and GNNs.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='80'>∑</text></svg>">
+  <meta property="og:title" content="Mathematics For Fun — Rajeev Lochan Joshi" />
+  <meta property="og:description" content="Problems & solution sketches in LLMs, probability, stats, and GNNs." />
+  <meta property="og:type" content="website" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode:'class', theme: { extend: { colors: { brand: { DEFAULT:'#0ea5e9', 600:'#0284c7' } } } } };
+  </script>
+  <style>
+    .link-underline { background-image: linear-gradient(currentColor,currentColor); background-size: 0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .25s; }
+    .link-underline:hover { background-size: 100% 2px; }
+    .card { border-radius: 1rem; border: 1px solid rgba(148,163,184,.25); }
+  </style>
+</head>
+<body class="bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-slate-900/70 border-b border-slate-200/60 dark:border-slate-800">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="font-semibold tracking-tight text-lg">Rajeev <span class="text-brand">Lochan</span> Joshi</a>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="index.html" class="link-underline">Home</a>
+        <a href="resume.html" class="link-underline" target="_blank">Resume ↗</a>
+        <a href="projects.html" class="link-underline">Projects</a>
+        <a href="publications.html" class="link-underline">Publications</a>
+        <a href="interests.html" class="link-underline" target="_blank">Interests ↗</a>
+        <a href="math4fun.html" class="link-underline" target="_blank">Math 4 Fun ↗</a>
+        <a href="contact.html" class="link-underline">Contact</a>
+      </nav>
+      <button id="themeToggle" class="rounded-xl border border-slate-200 dark:border-slate-700 p-2">🌓</button>
+    </div>
+  </header>
+
+  <section class="mx-auto max-w-6xl px-4 py-16 md:py-20">
+    <div class="flex items-end justify-between gap-4">
+      <h1 class="text-3xl md:text-4xl font-extrabold">Mathematics For Fun 🧠✨</h1>
+      <a href="index.html" class="text-sm link-underline">← Back to Home</a>
+    </div>
+    <p class="mt-4 text-slate-600 dark:text-slate-300 max-w-3xl">Short, punchy problems with solution sketches. Filter by tags.</p>
+
+    <div class="mt-6 flex flex-wrap gap-2 text-sm" id="mf-filters">
+      <button data-filter="all" class="mf-filter px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">All</button>
+      <button data-filter="llm" class="mf-filter px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">LLM</button>
+      <button data-filter="probstats" class="mf-filter px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Prob/Stats</button>
+      <button data-filter="optim" class="mf-filter px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Optimization</button>
+      <button data-filter="gnn" class="mf-filter px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">GNNs</button>
+    </div>
+
+    <div id="mf-grid" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="mf-card card p-5" data-tags="llm probstats">
+        <h3 class="font-semibold">Temperature vs. Entropy in LLM Sampling</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Show that increasing softmax temperature T increases output entropy for a fixed logit vector; discuss top‑p counter‑cases.</p>
+        <details class="mt-3 text-sm"><summary class="cursor-pointer">Solution</summary>
+          <div class="mt-2 text-slate-600 dark:text-slate-300">Differentiate H(p(T)) with p_i=softmax(z_i/T); dH/dT ≥ 0 under full support; truncation breaks monotonicity.</div>
+        </details>
+      </article>
+
+      <article class="mf-card card p-5" data-tags="llm">
+        <h3 class="font-semibold">Why Soft Labels for Distillation?</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Minimizing KL with softened teacher outputs preserves inter‑class structure (dark knowledge) vs one‑hot CE.</p>
+        <details class="mt-3 text-sm"><summary class="cursor-pointer">Solution</summary>
+          <div class="mt-2 text-slate-600 dark:text-slate-300">With q_T=softmax(z/T), KL(p‖q_T) transfers relative logits; one‑hot targets collapse non‑argmax information.</div>
+        </details>
+      </article>
+
+      <article class="mf-card card p-5" data-tags="probstats optim">
+        <h3 class="font-semibold">Hoeffding vs. Bernstein (A/B)</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Compare sample size n for δ‑PAC detection of lift ε when variance is small; select bound adaptively.</p>
+        <details class="mt-3 text-sm"><summary class="cursor-pointer">Solution</summary>
+          <div class="mt-2 text-slate-600 dark:text-slate-300">Hoeffding: n ≥ 2/ε² ln(2/δ). Bernstein: n ≥ 2σ²/ε² ln(3/δ)+7/3ε ln(3/δ).</div>
+        </details>
+      </article>
+
+      <article class="mf-card card p-5" data-tags="probstats">
+        <h3 class="font-semibold">Coupon Collector Tail</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Prove P(T ≥ n(ln n + c)) ≤ e^{-c} via union bound.</p>
+        <details class="mt-3 text-sm"><summary class="cursor-pointer">Solution</summary>
+          <div class="mt-2 text-slate-600 dark:text-slate-300">Bound P(coupon i unseen) and union bound over i; pick k=n(ln n + c).</div>
+        </details>
+      </article>
+
+      <article class="mf-card card p-5" data-tags="gnn">
+        <h3 class="font-semibold">GCN Over‑smoothing Threshold</h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Repeated Ā multiplication collapses features toward stationarity; rate set by spectral gap.</p>
+        <details class="mt-3 text-sm"><summary class="cursor-pointer">Solution</summary>
+          <div class="mt-2 text-slate-600 dark:text-slate-300">Use eigendecomposition; convergence rate ∝ |λ₂|^k; define threshold by ∥X_k−X_∞∥ ≤ ε.</div>
+        </details>
+      </article>
+    </div>
+
+    <p class="mt-6 text-xs text-slate-500">Add more by duplicating a card and updating <code>data-tags</code>.</p>
+  </section>
+  <script>
+    const mfFilters=document.querySelectorAll('.mf-filter'), mfCards=document.querySelectorAll('.mf-card');
+    mfFilters.forEach(btn=>btn.addEventListener('click',()=>{
+      const f=btn.getAttribute('data-filter');
+      mfFilters.forEach(b=>b.classList.remove('bg-brand','text-white'));
+      btn.classList.add('bg-brand','text-white');
+      mfCards.forEach(card=>{ const t=card.getAttribute('data-tags')||''; card.style.display=(f==='all'||t.includes(f))?'':'none'; });
+    }));
+  </script>
+
+  <footer class="border-t border-slate-200/60 dark:border-slate-800 mt-16">
+    <div class="mx-auto max-w-6xl px-4 py-8 text-sm flex flex-wrap items-center justify-between gap-3">
+      <p>© <span id="year"></span> Rajeev Lochan Joshi</p>
+      <div class="flex gap-4">
+        <a class="link-underline" href="https://github.com/Rajeev1815" target="_blank">GitHub</a>
+        <a class="link-underline" href="#" target="_blank">LinkedIn</a>
+        <a class="link-underline" href="#" target="_blank">Google Scholar</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const t=document.getElementById('themeToggle'), r=document.documentElement, s=localStorage.getItem('theme');
+    if (s==='dark' || (!s && matchMedia('(prefers-color-scheme: dark)').matches)) r.classList.add('dark');
+    t?.addEventListener('click',()=>{{ r.classList.toggle('dark'); localStorage.setItem('theme', r.classList.contains('dark')?'dark':'light'); }});
+  </script>
+</body>
+</html>
