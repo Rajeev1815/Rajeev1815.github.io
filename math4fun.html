@@ -54,6 +54,8 @@
       <button class="btn" data-filter="prob">Probability/Stats</button>
     </div>
 
+
+
     <ul class="rounded-xl space-y-4">
       <li class="row" data-tags="prob">
         <div class="flex items-start justify-between gap-4 p-5">
@@ -108,6 +110,83 @@
             <p>
               Best case k=0: passenger 1 sits in seat 1; everyone sits correctly. For k=2 or k=3, the displacement loop either absorbs seat n (last is wrong) or closes at seat 1 (last is right). This “two outcomes per k” pattern again yields 1/2 overall.
             </p>
+          </div>
+        </details>
+      </li>
+
+      <li class="row" data-tags="nt">
+        <div class="flex items-start justify-between gap-4 p-5">
+          <div>
+            <h3 class="font-semibold text-lg">Sum of GCDs up to x — F(x) = Σ gcd(i, x)</h3>
+            <p class="text-slate-400 text-sm mt-1">
+              Find a fast way to compute <code>F(x) = gcd(1,x) + gcd(2,x) + … + gcd(x,x)</code>.
+              Hint: count how many integers have <code>gcd(i, x) = d</code> for each divisor <code>d | x</code>.
+            </p>
+          </div>
+          <div class="text-xs text-slate-400 shrink-0 mt-1">Added: Aug 30, 2025</div>
+        </div>
+
+        <details class="group border-t border-slate-700/50 bg-slate-900/20 rounded-b-xl">
+          <summary class="flex items-center justify-between py-3 px-5 cursor-pointer">
+            <span class="text-brand text-sm group-open:hidden">Show Solution ▾</span>
+            <span class="text-brand text-sm hidden group-open:inline">Hide Solution ▴</span>
+          </summary>
+
+          <div class="pb-6 px-5 text-slate-300/90 space-y-4">
+            <h4 class="font-semibold">Key observation</h4>
+            <p>
+              For any divisor <code>d | x</code>, the condition <code>gcd(i, x) = d</code> is equivalent to
+              <code>gcd(i/d, x/d) = 1</code>. The number of such <code>i</code> values between 1 and <code>x</code>
+              is exactly Euler’s totient function <code>φ(x/d)</code>.
+            </p>
+            <p class="font-semibold">
+              Therefore:
+              <br />
+              <code>F(x) = Σ<sub>d | x</sub> d · φ(x/d)</code>
+            </p>
+
+            <h4 class="font-semibold">Why Euler’s Totient Works</h4>
+            <p>
+              The totient <code>φ(n)</code> counts how many numbers up to <code>n</code> are coprime with <code>n</code>.
+              It can be calculated using the product formula:
+              <br />
+              <code>φ(n) = n × ∏<sub>p | n</sub> (1 − 1/p)</code>,
+              where the product runs over all distinct primes dividing <code>n</code>.
+            </p>
+            <p>
+              This formula is derived using inclusion–exclusion: subtract multiples of each prime divisor,
+              then add back multiples of pairs, and so on.
+            </p>
+
+            <div class="mt-3">
+              <p class="text-sm text-slate-400">
+                See plot file: <strong>euler_totient_function.png</strong> — a scatter plot of φ(n) for n ≤ 1000.
+              </p>
+            </div>
+
+            <h4 class="font-semibold">Example (x = 12)</h4>
+            <p>Divisors of 12: 1, 2, 3, 4, 6, 12.</p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>d=1 → φ(12)=4 → 1·4=4</li>
+              <li>d=2 → φ(6)=2  → 2·2=4</li>
+              <li>d=3 → φ(4)=2  → 3·2=6</li>
+              <li>d=4 → φ(3)=2  → 4·2=8</li>
+              <li>d=6 → φ(2)=1  → 6·1=6</li>
+              <li>d=12 → φ(1)=1 → 12·1=12</li>
+            </ul>
+            <p class="font-semibold">F(12) = 4 + 4 + 6 + 8 + 6 + 12 = 40.</p>
+
+            <h4 class="font-semibold">Complexity Advantage</h4>
+            <p>
+              This method only iterates over divisors of <code>x</code>, giving complexity <code>O(√x)</code>
+              instead of <code>O(x)</code> for a naive sum.
+            </p>
+
+            <h4 class="font-semibold">References</h4>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>Inclusion–Exclusion Principle</li>
+              <li>Euler’s Totient Function and product formula</li>
+            </ul>
           </div>
         </details>
       </li>
