@@ -68,13 +68,78 @@
         </details>
       </article>
 
-      <article class="mf-card card p-5" data-tags="probstats optim">
-        <h3 class="font-semibold">Hoeffding vs. Bernstein (A/B)</h3>
-        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Compare sample size n for δ‑PAC detection of lift ε when variance is small; select bound adaptively.</p>
-        <details class="mt-3 text-sm"><summary class="cursor-pointer">Solution</summary>
-          <div class="mt-2 text-slate-600 dark:text-slate-300">Hoeffding: n ≥ 2/ε² ln(2/δ). Bernstein: n ≥ 2σ²/ε² ln(3/δ)+7/3ε ln(3/δ).</div>
-        </details>
-      </article>
+      <section id="prob-stats-airplane" class="mx-auto max-w-4xl px-4 py-12">
+        <div class="card p-6 rounded-[1.25rem] border border-slate-700/50 bg-slate-900/40 tilt">
+          <div class="h-1.5 w-12 rounded-full bg-sky-400/70 mb-4"></div>
+          <h2 class="text-xl font-semibold">Airplane Seating (Lost Boarding Pass)</h2>
+
+          <p class="mt-4 text-slate-300/90">
+            There are <em>n</em> passengers and <em>n</em> seats. The first passenger lost the boarding pass and
+            picks a seat uniformly at random. Everyone else takes their own seat if free; otherwise they also
+            pick a random free seat. What is the probability the <strong>last</strong> passenger sits in the
+            correct seat?
+          </p>
+
+          <h3 class="mt-6 font-semibold">Answer (last passenger)</h3>
+          <p class="text-slate-300/90">
+            For all <em>n ≥ 2</em>, the probability is <strong>1/2</strong>.
+          </p>
+
+          <h3 class="mt-6 font-semibold">Reasoning</h3>
+          <ol class="mt-3 space-y-2 text-slate-300/90 list-decimal pl-5">
+            <li>
+              Track only the “special” seats: seat 1 (the first passenger’s proper seat) and seat <em>n</em>
+              (the last passenger’s proper seat).
+            </li>
+            <li>
+              Once the first passenger sits randomly, everyone with their own seat free will take it and doesn’t
+              affect these special seats. Only when someone’s seat is taken do they choose a random free seat,
+              which can only be one of the current “special” seats.
+            </li>
+            <li>
+              The process ends the first time one of the two special seats is taken: either seat 1 (then the last
+              passenger’s seat is free) or seat <em>n</em> (then it isn’t). By symmetry, each happens with
+              probability 1/2.
+            </li>
+          </ol>
+
+          <h3 class="mt-6 font-semibold">Generalization</h3>
+          <p class="text-slate-300/90">
+            Let <em>k</em> be a positive integer with <em>1 ≤ k ≤ n−1</em>. Consider the
+            <strong><em>k</em>th person from the end</strong> (passenger number <em>n−k+1</em>).
+            The probability that they find their own seat vacant (hence sit correctly) is
+            <strong><em>k/(k+1)</em></strong>.
+          </p>
+
+          <h4 class="mt-4 font-semibold">Why <em>k/(k+1)</em>?</h4>
+          <ol class="mt-2 space-y-2 text-slate-300/90 list-decimal pl-5">
+            <li>
+              Extend the “special seats” set to
+              <span class="whitespace-nowrap">S = { 1, n−k+1, n−k+2, …, n }</span>,
+              which has <em>k+1</em> seats: the first passenger’s seat and the final <em>k</em> proper seats.
+            </li>
+            <li>
+              Invariant: at any time before one of these special seats is finally taken, exactly one seat in
+              <em>S</em> is “claimed by the wrong person” and this “wrongness token” jumps uniformly among the
+              currently free seats in <em>S</em> whenever someone is forced to choose randomly. Passengers whose
+              own seats are free just sit and don’t affect <em>S</em>.
+            </li>
+            <li>
+              When passenger <em>n−k+1</em> is about to board, the token is equally likely to be on any one of
+              the <em>k+1</em> seats in <em>S</em>. Their seat is vacant exactly when the token is on one of the
+              <em>other k</em> seats. Hence
+              <span class="whitespace-nowrap"><strong>P = k/(k+1)</strong>.</span>
+            </li>
+          </ol>
+
+          <p class="mt-4 text-slate-300/90">
+            Checks: for <em>k=1</em> (the very last passenger) we get <em>1/2</em>; for <em>k=2</em>
+            (second-to-last) we get <em>2/3</em>; for <em>k=3</em> we get <em>3/4</em>, etc. The value does not
+            depend on <em>n</em> as long as <em>n ≥ k+1</em>.
+          </p>
+        </div>
+      </section>
+
 
       <article class="mf-card card p-5" data-tags="probstats">
         <h3 class="font-semibold">Coupon Collector Tail</h3>
@@ -92,6 +157,8 @@
         </details>
       </article>
     </div>
+
+    
 
     <p class="mt-6 text-xs text-slate-500">Add more by duplicating a card and updating <code>data-tags</code>.</p>
   </section>
