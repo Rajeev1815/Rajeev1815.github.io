@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+  <style>
+  /* Submerged / blended image container */
+  .submerge {
+    position: relative;
+    isolation: isolate; /* keep the glow behind the image but above the page bg */
+  }
+  /* Big ambient glow behind the image (melts into the page) */
+  .submerge::before {
+    content:"";
+    position:absolute; inset:-12%;
+    z-index:-1;
+    background: radial-gradient(60% 60% at 70% 30%, rgba(14,165,233,.28), transparent 60%),
+                radial-gradient(50% 50% at 30% 80%, rgba(167,139,250,.20), transparent 60%);
+    filter: blur(30px);
+    border-radius: 3rem;
+  }
+  /* Feather the image edges slightly so it blends with the background */
+  .submerge > .feather {
+    /* works in all modern browsers */
+    -webkit-mask-image: radial-gradient(120% 120% at 50% 50%, #000 75%, transparent 100%);
+            mask-image: radial-gradient(120% 120% at 50% 50%, #000 75%, transparent 100%);
+  }
+</style>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rajeev Lochan Joshi — Home</title>
@@ -106,25 +130,34 @@
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="projects.html" class="btn btn--primary" data-i18n="cta_projects">View Projects</a>
-          <a href="resume.html" class="btn btn--outline" data-i18n="cta_resume">Resume</a>
-          <a href="math4fun.html" target="_blank" class="btn btn--outline" data-i18n="cta_math">Math 4 Fun ↗</a>
+          <a href="resume.html" class="btn btn--primary" data-i18n="cta_resume">Resume</a>
+          <a href="math4fun.html" target="_blank" class="btn btn--primary" data-i18n="cta_math">Math 4 Fun ↗</a>
         </div>
+
       </div>
 
       <!-- Photo (landscape crop, controlled focus) -->
       <div class="md:justify-self-end">
         <div class="relative">
           <div class="absolute inset-0 -z-10 blob bg-gradient-to-tr from-brand/25 to-fuchsia-500/25 rounded-[3rem]"></div>
-          <div class="rounded-[3rem] border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-950/60 overflow-hidden shadow-xl max-w-[640px] mx-auto"
+
+          <div class="submerge rounded-[3rem] border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-950/60 overflow-hidden shadow-xl max-w-[640px] mx-auto"
               style="aspect-ratio:4/3">
-            <img 
+            <!-- subtle gradient overlay to soften the top/edges -->
+            <div class="absolute inset-0 pointer-events-none" style="
+                background:
+                  linear-gradient(to bottom, rgba(2,6,23,.08), transparent 35%),
+                  radial-gradient(80% 40% at 50% 0%, rgba(2,6,23,.10), transparent 60%);
+            "></div>
+
+            <img
               src="Rajeev_Convo.JPG"
               alt="Rajeev Lochan Joshi at IIT Kharagpur"
-              class="h-full w-full object-cover object-[50%_60%]" />
+              class="feather h-full w-full object-cover object-[50%_60%]" />
           </div>
-
         </div>
       </div>
+
     </div>
   </section>
 
