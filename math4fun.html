@@ -60,9 +60,6 @@
       <li class="row" data-tags="prob">
         <div class="flex items-start justify-between gap-4 p-5">
           <div>
-            <div class="mb-2">
-              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-slate-600/50 text-slate-300">Probability/Stats</span>
-            </div>
             <h3 class="font-semibold text-lg">Airplane Seating (Lost Boarding Pass)</h3>
             <p class="text-slate-400 text-sm mt-1">
               There are <em>n</em> passengers and <em>n</em> seats. Passenger&nbsp;1 sits randomly;
@@ -79,32 +76,45 @@
             <span class="text-brand text-sm group-open:hidden">Show Solution ▾</span>
             <span class="text-brand text-sm hidden group-open:inline">Hide Solution ▴</span>
           </summary>
+
           <div class="pb-6 px-5 text-slate-300/90 space-y-4">
             <h4 class="font-semibold">Recap</h4>
             <p><code>P(A) = (number of outcomes where A happens) / (total number of outcomes)</code>. Here A is “the last passenger sits in the proper seat.”</p>
 
             <h4 class="font-semibold">Key idea (two special seats)</h4>
             <p>
-              Track only seat 1 and seat n. When someone’s seat is taken they pick a random free seat; think of a
-              “wrong-seat token” that jumps. The chain stops the first time it hits seat&nbsp;1 or seat&nbsp;n:
-              if it hits seat&nbsp;1 first, the last passenger is correct; if it hits seat&nbsp;n first, they are not.
+              Track only seat 1 (for passenger 1) and seat n (for the last passenger). Passenger 1 chooses a seat. Anyone whose seat is taken picks a random free seat; think of a “wrong-seat token” that jumps each time that happens. The process stops the first time the chain hits either seat 1 or seat n:
+            </p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>If the chain hits seat 1 first, seat n was never taken ⇒ the last passenger sits correctly.</li>
+              <li>If it hits seat n first, the last passenger’s seat is already occupied ⇒ they cannot sit correctly.</li>
+            </ul>
+
+            <h4 class="font-semibold">Counting by how many sit wrong (k-view)</h4>
+            <p>
+              Let <em>k</em> be the number of people who end up in the wrong seat. We never have <em>k = 1</em>. For each admissible <em>k</em> (0, 2, 3, …, n) there are two symmetric ways the chain can close: at seat 1 or at seat n. Exactly half of those cases give the last passenger their correct seat.
             </p>
 
             <h4 class="font-semibold">Result for the last passenger</h4>
-            <p><strong>P(last sits correctly) = 1/2</strong> for all <em>n ≥ 2</em>.</p>
+            <p><strong>P(last sits correctly) = 1/2</strong> for every <em>n ≥ 2</em>. Symmetry between the two special seats makes them equally likely to be the first one hit.</p>
 
             <h4 class="font-semibold">Generalization: k-th from last</h4>
             <p>
-              For passenger <code>n−k+1</code>, consider the set
-              <code>S = {1, n−k+1, …, n}</code> of size <code>k+1</code>. Just before they board, the token is
-              equally likely to be on any seat in <code>S</code>, so their seat is free with probability
-              <strong><code>k/(k+1)</code></strong>.
+              Consider passenger number <code>n − k + 1</code> (the k-th from the end). Track the special set
+              <code>S = {1, n−k+1, n−k+2, …, n}</code> of size <code>k+1</code>. Just before that passenger boards, the wrong-seat token is equally likely to be on any seat in <code>S</code>. Their seat is free exactly when the token is on one of the other <code>k</code> seats. Hence:
+              <strong>P(k-th from last finds own seat free) = k / (k + 1)</strong>.
+            </p>
+            <p>Checks: k=1 → 1/2 (the last passenger), k=2 → 2/3, k=3 → 3/4, independent of n (for n ≥ k+1).</p>
+
+            <h4 class="font-semibold">Alternative intuition via cases</h4>
+            <p>
+              Best case k=0: passenger 1 sits in seat 1; everyone sits correctly. For k=2 or k=3, the displacement loop either absorbs seat n (last is wrong) or closes at seat 1 (last is right). This “two outcomes per k” pattern again yields 1/2 overall.
             </p>
           </div>
         </details>
       </li>
 
-      <!-- NUMBER THEORY: p^2-1 divisible by 24 -->
+
       <li class="row" data-tags="nt">
         <div class="flex items-start justify-between gap-4 p-5">
           <div>
@@ -112,7 +122,9 @@
               <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-slate-600/50 text-slate-300">Number Theory</span>
             </div>
             <h3 class="font-semibold text-lg">Divisibility of <code>p^2 − 1</code> by <code>24</code> (for primes <code>p ≥ 5</code>)</h3>
-            <p class="text-slate-400 text-sm mt-1">Prove that for any prime <code>p ≥ 5</code>, the number <code>p^2 − 1</code> is divisible by <code>24</code>.</p>
+            <p class="text-slate-400 text-sm mt-1">
+              Prove that for any prime <code>p ≥ 5</code>, the number <code>p^2 − 1</code> is divisible by <code>24</code>.
+            </p>
           </div>
           <div class="text-xs text-slate-400 shrink-0 mt-1">Added: Aug 30, 2025</div>
         </div>
@@ -122,69 +134,53 @@
             <span class="text-brand text-sm group-open:hidden">Show Solution ▾</span>
             <span class="text-brand text-sm hidden group-open:inline">Hide Solution ▴</span>
           </summary>
+
           <div class="pb-6 px-5 text-slate-300/90 space-y-5">
             <h4 class="font-semibold">Clean proof via factors</h4>
-            <p>Factor: <code>p^2 − 1 = (p − 1)(p + 1)</code>. For primes <code>p ≥ 5</code>, <code>p</code> is odd and not divisible by 3.</p>
-            <p><strong>Divisible by 8:</strong> <code>p−1</code> and <code>p+1</code> are consecutive even numbers; one is a multiple of 4 and the other a multiple of 2 ⇒ product is a multiple of 8.</p>
-            <p><strong>Divisible by 3:</strong> among three consecutive integers exactly one is a multiple of 3; since <code>p</code> is not, either <code>p−1</code> or <code>p+1</code> is.</p>
-            <p><strong>Combine:</strong> <code>3 | (p^2−1)</code>, <code>8 | (p^2−1)</code>, <code>gcd(3,8)=1</code> ⇒ <code>24 | (p^2 − 1)</code>.</p>
+            <p>
+              Factor the expression:
+              <code>p^2 − 1 = (p − 1)(p + 1)</code>. For primes <code>p ≥ 5</code>, we have three consecutive integers
+              <code>p − 1, p, p + 1</code> with <code>p</code> odd and not divisible by 3.
+            </p>
 
-            <h4 class="font-semibold">Elegant modular view</h4>
+            <div class="space-y-2">
+              <p class="font-medium">1) Divisible by 8.</p>
+              <p>
+                Since <code>p</code> is odd, both <code>p − 1</code> and <code>p + 1</code> are even. Among two consecutive even
+                numbers, one is a multiple of 4 and the other is a multiple of 2. Hence
+                <code>(p − 1)(p + 1)</code> is divisible by <code>4 × 2 = 8</code>.
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <p class="font-medium">2) Divisible by 3.</p>
+              <p>
+                Among any three consecutive integers exactly one is a multiple of 3. Since a prime <code>p ≥ 5</code> is not
+                divisible by 3, either <code>p − 1</code> or <code>p + 1</code> is. Therefore
+                <code>(p − 1)(p + 1)</code> is divisible by 3.
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <p class="font-medium">3) Combine.</p>
+              <p>
+                We have <code>8 | (p^2 − 1)</code> and <code>3 | (p^2 − 1)</code>, and <code>gcd(8,3)=1</code>.
+                Hence <code>lcm(8,3)=24</code> divides <code>p^2 − 1</code>. Thus for every prime <code>p ≥ 5</code>,
+                <strong><code>24 | (p^2 − 1)</code></strong>.
+              </p>
+            </div>
+
+            <h4 class="font-semibold">Elegant modular view (one-liners)</h4>
             <ul class="list-disc pl-5 space-y-1">
-              <li><strong>mod 8:</strong> any odd <code>m</code> has <code>m^2 ≡ 1</code>.</li>
-              <li><strong>mod 3:</strong> for a prime <code>p ≥ 5</code>, <code>p ≡ ±1</code> ⇒ <code>p^2 ≡ 1</code>.</li>
-              <li>Hence <strong><code>p^2 ≡ 1 (mod 24)</code></strong>.</li>
+              <li><strong>mod 8:</strong> any odd <code>m</code> satisfies <code>m^2 ≡ 1 (mod 8)</code>, so <code>p^2 ≡ 1 (mod 8)</code>.</li>
+              <li><strong>mod 3:</strong> a prime <code>p ≥ 5</code> is <code>±1 (mod 3)</code>, hence <code>p^2 ≡ 1 (mod 3)</code>.</li>
+              <li>By CRT, <code>p^2 ≡ 1 (mod 24)</code> ⟺ <code>24 | (p^2 − 1)</code>.</li>
             </ul>
-          </div>
-        </details>
-      </li>
 
-      <!-- NUMBER THEORY: Goldbach Conjecture -->
-      <li class="row" data-tags="nt">
-        <div class="flex items-start justify-between gap-4 p-5">
-          <div>
-            <div class="mb-2">
-              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-slate-600/50 text-slate-300">Number Theory</span>
-            </div>
-            <h3 class="font-semibold text-lg">Goldbach Conjecture</h3>
-            <p class="text-slate-400 text-sm mt-1">The famous unsolved statement that every even integer greater than 2 is the sum of two primes.</p>
-          </div>
-          <div class="text-xs text-slate-400 shrink-0 mt-1">Added: Aug 31, 2025</div>
-        </div>
-
-        <details class="group border-t border-slate-700/50 bg-slate-900/20 rounded-b-xl">
-          <summary class="flex items-center justify-between py-3 px-5 cursor-pointer">
-            <span class="text-brand text-sm group-open:hidden">Show Details ▾</span>
-            <span class="text-brand text-sm hidden group-open:inline">Hide Details ▴</span>
-          </summary>
-          <div class="pb-6 px-5 text-slate-300/90 space-y-4">
-            <h4 class="font-semibold">The Story</h4>
+            <h4 class="font-semibold">Remark</h4>
             <p>
-              In <strong>1742</strong>, German mathematician <strong>Christian Goldbach</strong> wrote to
-              <strong>Leonhard Euler</strong> proposing that every integer greater than 2 is a sum of three primes.
-              Euler replied with a sharper form — now called the <strong>strong Goldbach Conjecture</strong>:
-              <em>Every even integer greater than 2 can be written as the sum of two primes.</em>
-            </p>
-            <p>
-              The conjecture is still <strong>unproven</strong>. Massive computations verify it for very large ranges,
-              and deep analytic work (Hardy–Littlewood circle method, etc.) has advanced our understanding.
-              A landmark was Helfgott’s 2013 proof of the <strong>weak Goldbach</strong> (every odd integer ≥7 is the sum of three primes).
-            </p>
-
-            <h4 class="font-semibold">Mathematical Statement</h4>
-            <p><strong>For every even integer</strong> <em>2n &gt; 2</em>, <strong>there exist primes</strong> <em>p, q</em> such that <em>2n = p + q</em>.</p>
-            <div class="mt-4">
-              <img src="goldbach_conjecture.png" alt="Visualization of Goldbach's Conjecture" class="rounded-lg shadow-md max-w-full">
-              <p class="text-xs text-slate-400 mt-2 italic">Visualization: Every even number greater than 2 can be expressed as the sum of two primes.</p>
-            </div>
-            <h4 class="font-semibold">Examples</h4>
-            <p>4 = 2 + 2, 6 = 3 + 3, 8 = 3 + 5, 10 = 5 + 5 or 3 + 7, 28 = 5 + 23, …</p>
-
-            <h4 class="font-semibold">Why it’s captivating</h4>
-            <p>
-              The conjecture feels “obviously true” from data and heuristics, yet resists proof.
-              It sits at the crossroads of additive number theory, primes in arithmetic progressions,
-              and the distribution of primes at large scales.
+              The argument actually shows: for any odd integer <code>n</code> not divisible by <code>3</code>,
+              <code>n^2 ≡ 1 (mod 24)</code>. Primes <code>p ≥ 5</code> are a special case.
             </p>
           </div>
         </details>
