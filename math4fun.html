@@ -55,8 +55,6 @@
       <button class="btn" data-filter="nt">Number Theory</button>
     </div>
 
-    <ul class="rounded-xl space-y-4">
-      <!-- PROB/STATS -->
       <li class="row" data-tags="prob">
         <div class="flex items-start justify-between gap-4 p-5">
           <div>
@@ -181,6 +179,57 @@
             <p>
               The argument actually shows: for any odd integer <code>n</code> not divisible by <code>3</code>,
               <code>n^2 ≡ 1 (mod 24)</code>. Primes <code>p ≥ 5</code> are a special case.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- NUMBER THEORY: Goldbach Conjecture -->
+      <li class="row" data-tags="nt">
+        <div class="flex items-start justify-between gap-4 p-5">
+          <div>
+            <div class="mb-2">
+              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-slate-600/50 text-slate-300">Number Theory</span>
+            </div>
+            <h3 class="font-semibold text-lg">Goldbach Conjecture</h3>
+            <p class="text-slate-400 text-sm mt-1">The famous unsolved statement that every even integer greater than 2 is the sum of two primes.</p>
+          </div>
+          <div class="text-xs text-slate-400 shrink-0 mt-1">Added: Aug 31, 2025</div>
+        </div>
+
+        <details class="group border-t border-slate-700/50 bg-slate-900/20 rounded-b-xl">
+          <summary class="flex items-center justify-between py-3 px-5 cursor-pointer">
+            <span class="text-brand text-sm group-open:hidden">Show Details ▾</span>
+            <span class="text-brand text-sm hidden group-open:inline">Hide Details ▴</span>
+          </summary>
+          <div class="pb-6 px-5 text-slate-300/90 space-y-4">
+            <h4 class="font-semibold">The Story</h4>
+            <p>
+              In <strong>1742</strong>, German mathematician <strong>Christian Goldbach</strong> wrote to
+              <strong>Leonhard Euler</strong> proposing that every integer greater than 2 is a sum of three primes.
+              Euler replied with a sharper form — now called the <strong>strong Goldbach Conjecture</strong>:
+              <em>Every even integer greater than 2 can be written as the sum of two primes.</em>
+            </p>
+            <p>
+              The conjecture is still <strong>unproven</strong>. Massive computations verify it for very large ranges,
+              and deep analytic work (Hardy–Littlewood circle method, etc.) has advanced our understanding.
+              A landmark was Helfgott’s 2013 proof of the <strong>weak Goldbach</strong> (every odd integer ≥7 is the sum of three primes).
+            </p>
+
+            <h4 class="font-semibold">Mathematical Statement</h4>
+            <p><strong>For every even integer</strong> <em>2n &gt; 2</em>, <strong>there exist primes</strong> <em>p, q</em> such that <em>2n = p + q</em>.</p>
+            <div class="mt-4">
+              <img src="goldbach_conjecture.png" alt="Visualization of Goldbach's Conjecture" class="rounded-lg shadow-md max-w-full">
+              <p class="text-xs text-slate-400 mt-2 italic">Visualization: Every even number greater than 2 can be expressed as the sum of two primes.</p>
+            </div>
+            <h4 class="font-semibold">Examples</h4>
+            <p>4 = 2 + 2, 6 = 3 + 3, 8 = 3 + 5, 10 = 5 + 5 or 3 + 7, 28 = 5 + 23, …</p>
+
+            <h4 class="font-semibold">Why it’s captivating</h4>
+            <p>
+              The conjecture feels “obviously true” from data and heuristics, yet resists proof.
+              It sits at the crossroads of additive number theory, primes in arithmetic progressions,
+              and the distribution of primes at large scales.
             </p>
           </div>
         </details>
