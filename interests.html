@@ -3,88 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interests — Rajeev Lochan Joshi</title>
-  <meta name="description" content="Poetry and writings that inspire me." />
+  <title data-i18n="page_title">Interests — Rajeev Lochan Joshi</title>
+  <meta name="description" content="Curated interests: poetry, ideas, and inspirations." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='80'>∑</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = { darkMode:'class', theme:{ extend:{ colors:{ brand:{ DEFAULT:'#0ea5e9', 600:'#0284c7' } } } } };
   </script>
   <style>
-    .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0% 2px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .2s}
+    .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0% 2px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .25s}
     .link-underline:hover{background-size:100% 2px}
     .card{border:1px solid rgba(148,163,184,.25);border-radius:1rem}
+    .row{border:1px solid rgba(148,163,184,.25);border-radius:1rem;background:rgba(2,6,23,.08)}
+    .badge{border:1px solid rgba(148,163,184,.45);border-radius:9999px;padding:.15rem .55rem;font-size:.7rem}
   </style>
 </head>
 <body class="bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100">
-  <!-- header -->
+  <!-- Header -->
   <header class="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-slate-900/70 border-b border-slate-200/60 dark:border-slate-800">
     <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="font-semibold tracking-tight text-lg">Rajeev <span class="text-brand">Lochan</span> Joshi</a>
-      <nav class="hidden md:flex gap-6 text-sm">
-        <a href="index.html" class="link-underline">Home</a>
-        <a href="resume.html" class="link-underline" target="_blank">Resume ↗</a>
-        <a href="projects.html" class="link-underline">Projects</a>
-        <a href="publications.html" class="link-underline">Publications</a>
-        <a href="interests.html" class="link-underline">Interests</a>
-        <a href="math4fun.html" class="link-underline" target="_blank">Math 4 Fun ↗</a>
-        <a href="contact.html" class="link-underline">Contact</a>
+      <a href="index.html" class="font-semibold tracking-tight text-lg">
+        Rajeev <span class="text-brand">Lochan</span> Joshi
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="index.html" class="link-underline" data-i18n="nav_home">Home</a>
+        <a href="resume.html" class="link-underline" target="_blank" data-i18n="nav_resume">Resume ↗</a>
+        <a href="projects.html" class="link-underline" data-i18n="nav_projects">Projects</a>
+        <a href="publications.html" class="link-underline" data-i18n="nav_pubs">Publications</a>
+        <a href="interests.html" class="link-underline" data-i18n="nav_interests">Interests</a>
+        <a href="math4fun.html" class="link-underline" target="_blank" data-i18n="nav_math">Math 4 Fun ↗</a>
+        <a href="contact.html" class="link-underline" data-i18n="nav_contact">Contact</a>
+
+        <select id="lang" class="ml-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-transparent px-2 py-1 text-sm">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="sa">संस्कृत</option>
+          <option value="fr">Français</option>
+        </select>
+
+        <button id="themeToggle" aria-label="Toggle dark mode" class="rounded-xl border border-slate-200 dark:border-slate-700 p-2">🌓</button>
       </nav>
-      <button id="themeToggle" class="rounded-xl border border-slate-200 dark:border-slate-700 p-2">🌓</button>
     </div>
   </header>
 
   <!-- Hero -->
   <section class="mx-auto max-w-6xl px-4 pt-12 pb-6">
-    <h1 class="text-3xl md:text-4xl font-extrabold">Interests</h1>
-    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300">
-      Poetry that inspires and moves me.
+    <h1 class="text-3xl md:text-4xl font-extrabold" data-i18n="hero_title">Interests</h1>
+    <p class="mt-3 max-w-3xl text-slate-600 dark:text-slate-300" data-i18n="hero_tagline">
+      A curated list of poetry and ideas that inspire and motivate me.
     </p>
   </section>
 
-  <!-- Poetry section -->
+  <!-- Poetry (single item) -->
   <section class="mx-auto max-w-6xl px-4 py-8">
-    <div class="card p-6">
-      <h2 class="text-2xl font-semibold mb-3">कृष्ण की चेतावनी — रामधारी सिंह 'दिनकर'</h2>
-      <p class="text-sm mb-4 text-slate-600 dark:text-slate-300">
-        A powerful poem that blends philosophy, patriotism, and the voice of Krishna. 
-        <a href="https://www.amarujala.com/kavya/irshaad/famous-hindi-poet-ramdhari-singh-dinkar-famous-poem-krishna-ki-chetavani" 
-           target="_blank" rel="noopener" 
-           class="link-underline">Read at source ↗</a>
-      </p>
-      <div class="mt-4 text-slate-700 dark:text-slate-200 whitespace-pre-line leading-relaxed">
-कृष्ण की चेतावनी
-
-वर्षों तक वन में घूम-घूम,
-बाधा-विघ्नों को चूम-चूम,
-सह धूप-घाम, पानी-पत्थर,
-पांडव आये कुछ और निखर।
-सौभाग्य न सब दिन सोता है,
-देखें, आगे क्या होता है।
-
-मैत्री की राह बताने को,
-सबको सुमार्ग पर लाने को,
-दुर्योधन को समझाने को,
-भीषण विध्वंस बचाने को,
-भगवान् हस्तिनापुर आये,
-पांडव का संदेशा लाये।
-
-‘दो न्याय अगर तो आधा दो,
-पर, इसमें भी यदि बाधा हो,
-तो दे दो केवल पाँच ग्राम,
-रक्खो अपनी धरती तमाम।
-हम वहीं खुशी से खायेंगे,
-परिजन पर असि न उठायेंगे!
-
-... (full poem continues here)
-
-कर जोड़ खड़े प्रमुदित,
-निर्भय, दोनों पुकारते थे ‘जय-जय’!
-      </div>
-    </div>
+    <ul class="rounded-xl space-y-4">
+      <li class="row">
+        <div class="p-5">
+          <div class="mb-2">
+            <span class="badge text-slate-300" data-i18n="badge_poem">Poem</span>
+          </div>
+          <h2 class="font-semibold text-lg" data-i18n="poem_title">
+            Krishna Ki Chetavani — Ramdhari Singh ‘Dinkar’
+          </h2>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300" data-i18n="poem_summary">
+            “Krishna Ki Chetavani” is among the most stirring poems in Hindi literature. On the eve of war, Krishna
+            offers peace to Duryodhana and warns of the ruin that hubris invites. The poem’s force comes from its
+            fusion of compassion and cosmic power—Krishna as guide and as a vast, moral order that insists on justice.
+            Dinkar’s diction is musical yet razor-sharp; images swing from intimate counsel to universe-sized vision.
+            Even stripped of context, the verses feel urgent and ethical: first persuasion, then the immovable demand
+            of dharma. It is beautiful not only in sound and rhythm, but in how it frames courage—standing for the
+            right thing when conciliation fails. The poem endures because it speaks to leaders and citizens alike:
+            peace is precious, but justice cannot be bartered away.
+          </p>
+          <p class="mt-3">
+            <a class="link-underline" target="_blank" rel="noopener"
+               href="https://www.amarujala.com/kavya/irshaad/famous-hindi-poet-ramdhari-singh-dinkar-famous-poem-krishna-ki-chetavani"
+               data-i18n="poem_link">Read the full poem ↗</a>
+          </p>
+        </div>
+      </li>
+    </ul>
   </section>
 
-  <!-- footer -->
+  <!-- Footer -->
   <footer class="border-t border-slate-200/60 dark:border-slate-800">
     <div class="mx-auto max-w-6xl px-4 py-8 text-sm flex flex-wrap items-center justify-between gap-3">
       <p>© <span id="year"></span> Rajeev Lochan Joshi</p>
@@ -97,10 +99,83 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // i18n dictionary
+    const I18N = {
+      en: {
+        page_title: "Interests — Rajeev Lochan Joshi",
+        nav_home: "Home", nav_resume: "Resume ↗", nav_projects: "Projects", nav_pubs: "Publications",
+        nav_interests: "Interests", nav_math: "Math 4 Fun ↗", nav_contact: "Contact",
+        hero_title: "Interests",
+        hero_tagline: "A curated list of poetry and ideas that inspire and motivate me.",
+        badge_poem: "Poem",
+        poem_title: "Krishna Ki Chetavani — Ramdhari Singh ‘Dinkar’",
+        poem_summary:
+          "“Krishna Ki Chetavani” is among the most stirring poems in Hindi literature. On the eve of war, Krishna offers peace to Duryodhana and warns of the ruin that hubris invites. The poem’s force comes from its fusion of compassion and cosmic power—Krishna as guide and as a vast, moral order that insists on justice. Dinkar’s diction is musical yet razor-sharp; images swing from intimate counsel to universe-sized vision. Even stripped of context, the verses feel urgent and ethical: first persuasion, then the immovable demand of dharma. It is beautiful not only in sound and rhythm, but in how it frames courage—standing for the right thing when conciliation fails. The poem endures because it speaks to leaders and citizens alike: peace is precious, but justice cannot be bartered away.",
+        poem_link: "Read the full poem ↗",
+      },
+      hi: {
+        page_title: "रुचियाँ — राजीव लोचन जोशी",
+        nav_home: "होम", nav_resume: "रिज़्यूमे ↗", nav_projects: "प्रोजेक्ट्स", nav_pubs: "प्रकाशन",
+        nav_interests: "रुचियाँ", nav_math: "Math 4 Fun ↗", nav_contact: "संपर्क",
+        hero_title: "रुचियाँ",
+        hero_tagline: "कविता और विचार — वे चीज़ें जो मुझे प्रेरित और ऊर्जा देती हैं।",
+        badge_poem: "कविता",
+        poem_title: "कृष्ण की चेतावनी — रामधारी सिंह ‘दिनकर’",
+        poem_summary:
+          "‘कृष्ण की चेतावनी’ हिंदी साहित्य की सबसे प्रभावशाली कविताओं में है। महाभारत युद्ध से पूर्व कृष्ण दुर्योधन को शांति का प्रस्ताव देते हैं और अहंकार व अन्याय के दुष्परिणामों की चेतावनी देते हैं। कविता का सौंदर्य करुणा और विराट शक्ति के संगम में है—कृष्ण मार्गदर्शक भी हैं और न्याय पर अडिग विश्व-व्यवस्था भी। दिनकर की भाषा संगीतात्मक और धारदार है; बिंब आत्मीय संवाद से लेकर ब्रह्माण्डीय विस्तार तक फैलते हैं। कविता नैतिक आग्रह रखती है—पहले समझाइश, फिर धर्म का अटल आदेश। इसमें केवल शब्द-सौंदर्य नहीं, साहस की भी परिभाषा है—समझौता विफल होने पर भी सत्य के पक्ष में खड़ा होना। यही कारण है कि यह रचना आज भी समकालीन लगती है: शांति अमूल्य है, पर न्याय का व्यापार नहीं हो सकता।",
+        poem_link: "पूरी कविता पढ़ें ↗",
+      },
+      sa: {
+        page_title: "रुचयः — राजीवः लोचनः जोशी",
+        nav_home: "गृह", nav_resume: "परिचयपत्रम् ↗", nav_projects: "प्रकल्पाः", nav_pubs: "प्रकाशनानि",
+        nav_interests: "रुचयः", nav_math: "Math 4 Fun ↗", nav_contact: "सम्पर्कः",
+        hero_title: "रुचयः",
+        hero_tagline: "काव्यं विचाराश्च — ये मां प्रेरयन्ति पोषणं च ददति।",
+        badge_poem: "काव्यम्",
+        poem_title: "कृष्णस्य चेतावनी — रामधारीसिंहः ‘दिनकरः’",
+        poem_summary:
+          "‘कृष्णस्य चेतावनी’ नाम काव्ये महाभारतयुद्धस्य पूर्वसन्ध्यायां श्रीकृष्णः दुर्योधनं शमाय उपदिशति, दर्प-अन्याययोः परिणामं च सूचयति। अस्य काव्यस्य सौन्दर्यं करुणाया विराट-शक्तेश्च समन्वये वर्तते—कृष्णः उपदेष्टा च, न्याये स्थितं विश्व-धर्म-संस्थापनं च। दिनकरस्य भाषा मधुरा तीक्ष्णा च; दृश्यबिम्बानि अन्तरङ्ग-संवादात् विश्व-विस्तारपर्यन्तं धावन्ति। काव्ये नैतिक-प्रतिज्ञा दृढा—प्रथमं साम, ततः धर्मस्य अनिवर्तनीयः आदेशः। न केवलं छन्द-सौन्दर्यं, अपि तु शौर्यस्य संकल्पः—समाधाने विफलेऽपि सत्य-पक्षे स्थितिः। अत एव एतत् काव्यं नित्यम् अपि नूतनम्—शान्तिः मूल्यवती, किन्तु न्यायस्य न विक्रयः।",
+        poem_link: "सम्पूर्णं काव्यं पठन्तु ↗",
+      },
+      fr: {
+        page_title: "Centres d’intérêt — Rajeev Lochan Joshi",
+        nav_home: "Accueil", nav_resume: "CV ↗", nav_projects: "Projets", nav_pubs: "Publications",
+        nav_interests: "Centres d’intérêt", nav_math: "Math 4 Fun ↗", nav_contact: "Contact",
+        hero_title: "Centres d’intérêt",
+        hero_tagline: "Une sélection de poésie et d’idées qui m’inspirent.",
+        badge_poem: "Poème",
+        poem_title: "Krishna Ki Chetavani — Ramdhari Singh « Dinkar »",
+        poem_summary:
+          "« Krishna Ki Chetavani » compte parmi les poèmes les plus poignants de la littérature hindi. À la veille de la guerre, Krishna propose la paix à Duryodhana et l’avertit du désastre qu’engendre l’orgueil. La force du texte naît de la fusion entre compassion et puissance cosmique : Krishna comme guide et comme ordre moral inébranlable. La langue de Dinkar, musicale et précise, passe du conseil intime à une vision d’ampleur cosmique. Même hors contexte, les vers demeurent urgents et éthiques : d’abord la persuasion, puis l’exigence du dharma. La beauté tient autant au rythme qu’à la mise en scène du courage : tenir le juste cap lorsque la conciliation échoue. Le poème demeure actuel : la paix est précieuse, mais la justice ne se marchande pas.",
+        poem_link: "Lire le poème complet ↗",
+      }
+    };
+
+    function applyLang(lang){
+      const dict = I18N[lang] || I18N.en;
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.title = dict.page_title || I18N.en.page_title;
+      localStorage.setItem("lang", lang);
+      document.documentElement.lang = lang;
+    }
+
+    // init theme
     const t=document.getElementById('themeToggle'), r=document.documentElement, s=localStorage.getItem('theme');
     if (s==='dark' || (!s && matchMedia('(prefers-color-scheme: dark)').matches)) r.classList.add('dark');
     t?.addEventListener('click',()=>{ r.classList.toggle('dark'); localStorage.setItem('theme', r.classList.contains('dark')?'dark':'light'); });
+
+    // init language
+    const sel = document.getElementById('lang');
+    const saved = localStorage.getItem('lang') || 'en';
+    sel.value = saved;
+    applyLang(saved);
+    sel.addEventListener('change', e => applyLang(e.target.value));
+
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
