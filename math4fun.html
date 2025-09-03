@@ -367,6 +367,117 @@
         </details>
       </li>
 
+      <li class="row" data-tags="prob">
+        <div class="flex items-start justify-between gap-4 p-5">
+          <div>
+            <div class="mb-2">
+              <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-slate-600/50 text-slate-300">Probability/Stats</span>
+            </div>
+            <h3 class="font-semibold text-lg">Two Friends Guess Each Other’s Coin Toss</h3>
+            <p class="text-slate-400 text-sm mt-1">
+              You and a friend each flip a fair coin. Without further communication, each of you must
+              guess the result of the other’s coin. If both guesses are correct, your team earns <strong>2&nbsp;€</strong>;
+              if either guess is wrong, your team pays <strong>1&nbsp;€</strong>. Should you be happy to play,
+              or is the third person (the banker) in a better position?
+            </p>
+          </div>
+          <div class="text-xs text-slate-400 shrink-0 mt-1">Added: Sep 04, 2025</div>
+        </div>
+
+        <details class="group border-t border-slate-700/50 bg-slate-900/20 rounded-b-xl">
+          <summary class="flex items-center justify-between py-3 px-5 cursor-pointer">
+            <span class="text-brand text-sm group-open:hidden">Show Solution ▾</span>
+            <span class="text-brand text-sm hidden group-open:inline">Hide Solution ▴</span>
+          </summary>
+
+          <div class="pb-6 px-5 text-slate-300/90 space-y-4">
+            <h4 class="font-semibold">Recap</h4>
+            <p>
+              Each round has two coin tosses: yours (<code>C1</code>) and your friend’s (<code>C2</code>).  
+              You each write down a guess for the other’s coin (<code>N1</code> and <code>N2</code>).  
+              Payoffs: <strong>+2 €</strong> if both guesses are right, <strong>−1 €</strong> otherwise.
+            </p>
+
+            <h4 class="font-semibold">Naïve random guessing</h4>
+            <p>
+              If both players just guess randomly, then the chance both guesses match reality is
+              <code>(1/2) × (1/2) = 1/4</code>.  
+              Expected payoff:
+            </p>
+            <p><code>EV = (1/4 × 2) + (3/4 × −1) = −1/4</code>.</p>
+            <p>
+              In this case the banker wins on average; the players lose 0.25&nbsp;€ per game.
+            </p>
+
+            <h4 class="font-semibold">A better strategy</h4>
+            <p>
+              Suppose each player uses their own coin toss as their guess for the other’s coin
+              (<code>N1 = C1</code>, <code>N2 = C2</code>).  
+              The four possible outcomes look like this:
+            </p>
+
+            <div class="overflow-x-auto">
+              <table class="table-auto border border-slate-600/50 text-sm text-slate-300 mx-auto">
+                <thead class="bg-slate-800/40">
+                  <tr>
+                    <th class="px-3 py-2 border border-slate-600/50">C1</th>
+                    <th class="px-3 py-2 border border-slate-600/50">C2</th>
+                    <th class="px-3 py-2 border border-slate-600/50">N1 (guess C2)</th>
+                    <th class="px-3 py-2 border border-slate-600/50">N2 (guess C1)</th>
+                    <th class="px-3 py-2 border border-slate-600/50">Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50 text-green-400">Both correct (+2 €)</td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50 text-green-400">Both correct (+2 €)</td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50 text-red-400">Both wrong (−1 €)</td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50">T</td>
+                    <td class="px-3 py-2 border border-slate-600/50">H</td>
+                    <td class="px-3 py-2 border border-slate-600/50 text-red-400">Both wrong (−1 €)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              So probability of winning is 1/2 (coins match).  
+              Expected payoff:
+            </p>
+            <p><code>EV = (1/2 × 2) + (1/2 × −1) = +1/2</code>.</p>
+
+            <h4 class="font-semibold">Conclusion</h4>
+            <p>
+              With random guesses, the banker profits.  
+              With the “copy your own toss” strategy, your team’s expected gain is
+              <strong>+0.5&nbsp;€ per round</strong>.  
+              So you definitely prefer being on the players’ team!
+            </p>
+          </div>
+        </details>
+      </li>
+
+
     </ul>
   </section>
 
