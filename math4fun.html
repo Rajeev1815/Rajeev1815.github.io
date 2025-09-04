@@ -523,7 +523,40 @@
             </ul>
 
             <div class="flex justify-center">
-              <img src="markov_cube_white.png" alt="Markov chain diagram of cube states" class="rounded-lg border border-slate-700/50 shadow-lg">
+              <!-- Markov Chain Diagram -->
+              <svg width="500" height="300" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- States -->
+                <circle cx="100" cy="150" r="30" stroke="white" fill="black"/>
+                <text x="100" y="155" text-anchor="middle" fill="white">1</text>
+
+                <circle cx="250" cy="150" r="30" stroke="white" fill="black"/>
+                <text x="250" y="155" text-anchor="middle" fill="white">2</text>
+
+                <circle cx="400" cy="150" r="30" stroke="white" fill="black"/>
+                <text x="400" y="155" text-anchor="middle" fill="white">sf</text>
+
+                <!-- Transitions -->
+                <line x1="130" y1="150" x2="220" y2="150" stroke="white" marker-end="url(#arrow)"/>
+                <text x="175" y="140" fill="white">1/2</text>
+
+                <line x1="280" y1="150" x2="370" y2="150" stroke="white" marker-end="url(#arrow)"/>
+                <text x="325" y="140" fill="white">1/2</text>
+
+                <!-- Loop on 1 -->
+                <path d="M 100 120 C 70 70, 130 70, 100 120" stroke="white" fill="transparent" marker-end="url(#arrow)"/>
+                <text x="100" y="60" fill="white">1/2</text>
+
+                <!-- Back edge 2 -> 1 -->
+                <path d="M 250 120 C 200 100, 150 100, 130 140" stroke="white" fill="transparent" marker-end="url(#arrow)"/>
+                <text x="190" y="110" fill="white">1/2</text>
+
+                <!-- Arrowhead definition -->
+                <defs>
+                  <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="white"/>
+                  </marker>
+                </defs>
+              </svg>
             </div>
 
             <h4 class="font-semibold">Step 3: First-step equations</h4>
