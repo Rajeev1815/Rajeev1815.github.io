@@ -523,40 +523,79 @@
             </ul>
 
             <div class="flex justify-center">
-              <!-- Markov Chain Diagram -->
-              <svg width="500" height="300" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
-                <!-- States -->
-                <circle cx="100" cy="150" r="30" stroke="white" fill="black"/>
-                <text x="100" y="155" text-anchor="middle" fill="white">1</text>
+              <!-- Paste this SVG where you want the diagram to appear -->
+              <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg"
+                  style="max-width:100%; height:auto; display:block;" role="img" aria-labelledby="mcTitle mcDesc">
+                <title id="mcTitle">Markov chain for ant on cube</title>
+                <desc id="mcDesc">States S0, Si1, Si2, Sf with forward transitions 1, 2/3, 1/3 and backward transitions 1/3 and 2/3. All arrows and labels are white.</desc>
 
-                <circle cx="250" cy="150" r="30" stroke="white" fill="black"/>
-                <text x="250" y="155" text-anchor="middle" fill="white">2</text>
-
-                <circle cx="400" cy="150" r="30" stroke="white" fill="black"/>
-                <text x="400" y="155" text-anchor="middle" fill="white">sf</text>
-
-                <!-- Transitions -->
-                <line x1="130" y1="150" x2="220" y2="150" stroke="white" marker-end="url(#arrow)"/>
-                <text x="175" y="140" fill="white">1/2</text>
-
-                <line x1="280" y1="150" x2="370" y2="150" stroke="white" marker-end="url(#arrow)"/>
-                <text x="325" y="140" fill="white">1/2</text>
-
-                <!-- Loop on 1 -->
-                <path d="M 100 120 C 70 70, 130 70, 100 120" stroke="white" fill="transparent" marker-end="url(#arrow)"/>
-                <text x="100" y="60" fill="white">1/2</text>
-
-                <!-- Back edge 2 -> 1 -->
-                <path d="M 250 120 C 200 100, 150 100, 130 140" stroke="white" fill="transparent" marker-end="url(#arrow)"/>
-                <text x="190" y="110" fill="white">1/2</text>
-
-                <!-- Arrowhead definition -->
                 <defs>
-                  <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
-                    <path d="M0,0 L0,6 L9,3 z" fill="white"/>
+                  <!-- white arrowhead -->
+                  <marker id="arrowW" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto">
+                    <path d="M0,0 L0,12 L12,6 z" fill="white"/>
                   </marker>
+
+                  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="0.6" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
                 </defs>
+
+                <!-- background (transparent to blend with page) -->
+                <!-- nodes -->
+                <g font-family="Arial, Helvetica, sans-serif" font-weight="700" text-anchor="middle">
+                  <!-- S0 -->
+                  <circle cx="140" cy="150" r="60" fill="#071018" stroke="#60a5fa" stroke-width="6"/>
+                  <text x="140" y="160" fill="white" font-size="36">S₀</text>
+
+                  <!-- Si1 -->
+                  <circle cx="420" cy="150" r="60" fill="#071018" stroke="#34d399" stroke-width="6"/>
+                  <text x="420" y="160" fill="white" font-size="36">Si₁</text>
+
+                  <!-- Si2 -->
+                  <circle cx="700" cy="150" r="60" fill="#071018" stroke="#fbbf24" stroke-width="6"/>
+                  <text x="700" y="160" fill="white" font-size="36">Si₂</text>
+
+                  <!-- Sf -->
+                  <circle cx="980" cy="150" r="60" fill="#071018" stroke="#f472b6" stroke-width="6"/>
+                  <text x="980" y="160" fill="white" font-size="36">S𝑓</text>
+                </g>
+
+                <!-- straight forward arrows (white) -->
+                <g stroke="white" stroke-width="4" fill="none" marker-end="url(#arrowW)">
+                  <!-- S0 -> Si1 -->
+                  <line x1="200" y1="150" x2="360" y2="150" />
+
+                  <!-- Si1 -> Si2 -->
+                  <line x1="480" y1="150" x2="640" y2="150" />
+
+                  <!-- Si2 -> Sf -->
+                  <line x1="760" y1="150" x2="920" y2="150" />
+                </g>
+
+                <!-- forward probability labels -->
+                <g font-family="Arial, Helvetica, sans-serif" fill="white" text-anchor="middle" font-weight="700">
+                  <text x="280" y="120" font-size="20">1</text>
+                  <text x="560" y="120" font-size="20">2/3</text>
+                  <text x="840" y="120" font-size="20">1/3</text>
+                </g>
+
+                <!-- curved backward arrows -->
+                <g stroke="white" stroke-width="4" fill="none" marker-end="url(#arrowW)">
+                  <!-- Si1 -> S0 (ends near left circle) -->
+                  <path d="M360 150 C 320 240, 200 240, 200 150" />
+
+                  <!-- Si2 -> Si1 -->
+                  <path d="M640 150 C 600 240, 420 240, 360 150" />
+                </g>
+
+                <!-- backward probability labels -->
+                <g font-family="Arial, Helvetica, sans-serif" fill="white" text-anchor="middle" font-weight="700">
+                  <text x="280" y="240" font-size="20">1/3</text>
+                  <text x="500" y="240" font-size="20">2/3</text>
+                </g>
               </svg>
+
             </div>
 
             <h4 class="font-semibold">Step 3: First-step equations</h4>
